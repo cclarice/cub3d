@@ -1,0 +1,47 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/01/16 06:18:45 by cclarice          #+#    #+#              #
+#    Updated: 2021/01/23 13:10:52 by cclarice         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME	= cub3Dold
+
+SRC		=	./srcold/vld.c ./srcold/error.c ./srcold/debug.c ./srcold/color.c \
+			./srcold/utils.c ./srcold/images_init.c \
+
+
+PRFS	=	./srcold/ptf/ft_printf.c \
+			./srcold/ptf/ft_printf_get.c \
+			./srcold/ptf/ft_printf_char.c\
+			./srcold/ptf/ft_printf_hex.c \
+			./srcold/ptf/ft_printf_nbr.c \
+			./srcold/ptf/ft_printf_str.c \
+			./srcold/ptf/ft_printf_unsigned.c \
+			./srcold/ptf/ft_printf_utils.c \
+			./srcold/ptf/ft_printf_put.c \
+
+OBJ		= ${SRC:.c=.o}
+
+CC		= cc
+
+FLAGS	= -Wall -Wextra -Werror
+MLXFL	= -L Lmlx/ -lmlx -framework OpenGL -framework AppKit
+
+all:	${NAME}
+
+${NAME}: ${SRC} ./srcold/cube3d.c
+		 ${CC} ${FLAGS} ${SRC} ${PRFS} ${SMLX} ./srcold/cube3d.c ${MLXFL} -o ${NAME}
+
+clean:
+		make clean -C Lmlx
+
+fclean: clean
+		rm -rf ${NAME}
+
+re:		fclean all

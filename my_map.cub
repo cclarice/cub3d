@@ -1,0 +1,17 @@
+R 5000 5000
+WE ./assets/brick_w.xpm
+NO ./assets/brick_n.xpm
+EA ./assets/brick_e.xpm
+SO ./assets/brick_s.xpm
+S ./assets/brick.xpm
+
+F 255,22,22
+C 111,18,18
+
+111111111
+100001001
+101N10101
+100000001
+101000001
+100000001
+111111111
