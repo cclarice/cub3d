@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 07:26:55 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/16 22:54:48 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/19 05:26:44 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 void	engine(t_eng *e)
 {
 	ft_printf("Run Engine\n");
-	my_put_string(&e->lma, "abcdefghijklmnopqrstuvwxyz", 20, 20, 2);
 	mlx_put_image_to_window(e->mlx, e->win, e->lma.img, 0, 0);
 	mlx_hook(e->win,	KeyPress			, 0L, &key_press			, e);
 	mlx_hook(e->win,	KeyRelease			, 0L, &key_release			, e);

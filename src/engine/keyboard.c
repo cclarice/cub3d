@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 22:30:34 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/16 23:03:24 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/22 17:29:01 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@
 #define KeyF3			99
 #define KeyMM			10
 
+void	 keyboard_init(t_eng *e)
+{
+	e->cnt.kw = 0;
+	e->cnt.ka = 0;
+	e->cnt.ks = 0;
+	e->cnt.kd = 0;
+	e->cnt.kr = 0;
+	e->cnt.kl = 0;
+	e->cnt.kf3 = 0;
+}
+
 int		key_press(int key, t_eng *e)
 {
 	ft_printf("key: %d\n", key);
@@ -33,13 +44,18 @@ int		key_press(int key, t_eng *e)
 		e->mmp.mode = 0;
 	if (key == 10)
 		e->cnt.mm = e->cnt.mm == 0 ? 1 : 0;
+	if (key == 47)
+		e->fov *= 1.1;
+	if (key == 43)
+		e->fov /= 1.1;
 	key == KeyW ? e->cnt.kw = 1 : 0;
 	key == KeyA ? e->cnt.ka = 1 : 0;
 	key == KeyS ? e->cnt.ks = 1 : 0;
 	key == KeyD ? e->cnt.kd = 1 : 0;
-	key == KeyR ? e->cnt.kr = 1 : 0;
-	key == KeyL ? e->cnt.kl = 1 : 0;
-	key == KeyF3 ? e->cnt.kf3 = 1 : 0;
+	key == KeyR || key == 8 ? e->cnt.kr = 1 : 0;
+	key == KeyL || key == 6 ? e->cnt.kl = 1 : 0;
+	if (key == KeyF3)
+		e->cnt.kf3 = e->cnt.kf3 ? 0 : 1;
 	return (0);
 }
 
@@ -49,13 +65,8 @@ int		key_release(int key, t_eng *e)
 	key == KeyA ? e->cnt.ka = 0 : 0;
 	key == KeyS ? e->cnt.ks = 0 : 0;
 	key == KeyD ? e->cnt.kd = 0 : 0;
-	key == KeyR ? e->cnt.kr = 0 : 0;
-	key == KeyL ? e->cnt.kl = 0 : 0;
-	key == KeyF3 ? e->cnt.kf3 = 0 : 0;
+	key == KeyR || key == 8  ? e->cnt.kr = 0 : 0;
+	key == KeyL || key == 6  ? e->cnt.kl = 0 : 0;
 	return (0);
 }
 
-void	 keyboard_init(t_eng *e)
-{
-	
-}

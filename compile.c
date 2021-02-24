@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:15:34 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/10 08:48:46 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/24 00:31:29 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
  
@@ -89,5 +89,9 @@ int main(int argc, char **argv)
 	free(args);
 	if (args2)
 		free(args2);
+	while (read(0, NULL, 1))
+	{
+		
+	}
 	return (0);
 }

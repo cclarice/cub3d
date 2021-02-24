@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 17:27:23 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/14 14:30:16 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/24 07:43:53 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	put_respawn(t_blc b, t_img *img, t_eng *e)
 	}
 }
 
-void	render_map(t_eng *e, t_img *img, int sizeb)
+void	render_map(t_eng *e, void *img, int sizeb)
 {
 	t_blc	b;
 

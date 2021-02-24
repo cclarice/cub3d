@@ -1,34 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   win_hook.c                                         :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 22:31:08 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/24 07:35:18 by cclarice         ###   ########.fr       */
+/*   Created: 2021/02/24 01:55:32 by cclarice          #+#    #+#             */
+/*   Updated: 2021/02/24 01:55:34 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "engine.h"
-
-void	destroyer()
-{
-	exit(0);
-}
-
-int		expose(int hook, t_eng *e)
-{
-	int use;
-
-	use = hook + e->msx;
-	return (0);
-}
-
-int		destroy_notify(int hook, t_eng *e)
-{
-	int use;
-
-	use = hook + e->msx;
-	return (0);
-}

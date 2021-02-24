@@ -6,7 +6,7 @@
 #    By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 06:18:45 by cclarice          #+#    #+#              #
-#    Updated: 2021/02/16 23:00:57 by cclarice         ###   ########.fr        #
+#    Updated: 2021/02/24 07:36:26 by cclarice         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ ENGINE		=	./src/engine/initialization.c   ./src/engine/initialization2.c \
 				./src/engine/raycasting.c                                      \
 				./src/engine/tick.c                    ./src/engine/win_hook.c \
 				./src/engine/keyboard.c                   ./src/engine/mouse.c \
+				./src/engine/get_color.c                  ./src/engine/color.c \
 				#./src/engine/engine.c \
 				./src/engine/control.c                 ./src/engine/movement.c \
 				./src/engine/mlx_utils.c                  ./src/engine/color.c \
@@ -39,7 +40,7 @@ PRINTF		=	./src/printf/ft_printf.c          ./src/printf/ft_printf_get.c \
 				./src/printf/ft_printf_utils.c    ./src/printf/ft_printf_nbr.c \
 				./src/printf/ft_printf_put.c                                   \
 
-CFLAGS		=	-I. -O3 -Wall -Wextra #-Werror
+CFLAGS		=	-I. -O3 -Wall -Wextra -Werror
 OBJS		=	$(SRCS:.c=.o)
 LIBS		=	-Lmlx -lmlx -framework OpenGL -framework AppKit -lm
 LMLX		=	libmlx.dylib

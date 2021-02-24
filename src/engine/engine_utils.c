@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 07:16:23 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/14 22:11:01 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/24 07:49:13 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	put_pixel_to_img(t_img *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void	fill_img_with_color(t_img *img, int x, int y, int color)
+void	fill_img_with_color(void *img, int x, int y, int color)
 {
 	int xx;
 	int yy;

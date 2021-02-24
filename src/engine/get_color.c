@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   win_hook.c                                         :+:      :+:    :+:   */
+/*   get_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 22:31:08 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/24 07:35:18 by cclarice         ###   ########.fr       */
+/*   Created: 2021/02/24 01:55:36 by cclarice          #+#    #+#             */
+/*   Updated: 2021/02/24 06:15:32 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
-void	destroyer()
+void	get_rgb(int color, int *r, int *g, int *b)
 {
-	exit(0);
+	*r = get_alpha(color);
+	*g = get_alpha(color);
+	*b = get_alpha(color);
 }
 
-int		expose(int hook, t_eng *e)
+int		get_alpha(int argb)
 {
-	int use;
-
-	use = hook + e->msx;
-	return (0);
+	return (argb & (0xFF << 24));
 }
 
-int		destroy_notify(int hook, t_eng *e)
+int		get_red(int argb)
 {
-	int use;
+	return (argb & (0xFF << 16));
+}
 
-	use = hook + e->msx;
-	return (0);
+int		get_green(int argb)
+{
+	return (argb & (0xFF << 8));
+}
+
+int		get_blue(int argb)
+{
+	return (argb & 0xFF);
 }

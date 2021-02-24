@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 06:55:47 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/16 23:02:40 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/24 07:37:04 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	mini_map_init(t_eng *e, t_vars v)
 	ft_printf("Resolution Y: %d Resolution X: %d\n", e->rex, e->rey);
 }
 
-int		color_init(t_eng *e)
+void		color_init(t_eng *e)
 {
 	e->mmp.b_clr = 0x404040;
 	e->mmp.t_clr = 0x3a3a3a;
@@ -120,6 +120,7 @@ int		initialization(t_path pt, t_vars v, char **map)
 	mini_map_init(&e, v);
 	color_init(&e);
 	window_init(&e, v);
+	mouse_init(&e);
 	keyboard_init(&e);
 	mouse_init(&e);
 	other_init(&e, v, map);

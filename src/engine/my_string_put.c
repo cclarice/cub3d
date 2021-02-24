@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 11:48:36 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/11 15:39:58 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/24 07:57:59 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,36 @@
   #  ## # # ##   # ### #     ## # #   ####  #### ###   #   # # #   #  #    ### \
 ##   #   ##       #####"
 
-void	put_square_pixel(t_img *img, int i, int x, int y, int color)
+void	my_put_char(t_img *img, char c, int x, int y, int size)
 {
-	put_pixel_to_img(img, x + i, y, 0xffffff);
-}
-
-void	my_put_char(t_img *img, char c, int x, int y)
-{
-	int i;
+	t_ab	s;
+	int		i;
 
 	i = 0;
-	//ft_printf("[ %c : %d ]", c, c);
 	while (i != 5)
 	{
+		s.xa = (x + i) * size;
+		s.ya = (y) * size;
+		s.xe = (x + i) * size + size - 1;
+		s.ye = (y) * size + size - 1;
 		if (CHARS0[c * 5 + i] == '#')
-			put_pixel_to_img(img, x + i, y, 0xffffff);
+			draw_full_rectangle(img, s, 0xffffff);
+		s.ya += size;
+		s.ye += size;
 		if (CHARS1[c * 5 + i] == '#')
-			put_pixel_to_img(img, x + i, y + 1, 0xffffff);
+			draw_full_rectangle(img, s, 0xffffff);
+		s.ya += size;
+		s.ye += size;
 		if (CHARS2[c * 5 + i] == '#')
-			put_pixel_to_img(img, x + i, y + 2, 0xffffff);
+			draw_full_rectangle(img, s, 0xffffff);
+		s.ya += size;
+		s.ye += size;
 		if (CHARS3[c * 5 + i] == '#')
-			put_pixel_to_img(img, x + i, y + 3, 0xffffff);
+			draw_full_rectangle(img, s, 0xffffff);
+		s.ya += size;
+		s.ye += size;
 		if (CHARS4[c * 5 + i] == '#')
-			put_pixel_to_img(img, x + i, y + 4, 0xffffff);
+			draw_full_rectangle(img, s, 0xffffff);
 		i++;
 	}
 }
@@ -93,7 +100,7 @@ void	my_put_string(t_img *img, char *str, int x, int y, int size)
 	ft_printf("my put string\n");
 	while (str[i] != '\0')
 	{
-		my_put_char(img, str[i], x, y);
+		my_put_char(img, str[i], x, y, size);
 		i++;
 		x += 6;
 	}

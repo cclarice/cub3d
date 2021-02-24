@@ -6,11 +6,11 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 22:52:50 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/16 22:54:00 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/24 08:06:38 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "engine.c"
+#include "engine.h"
 
 void	put_player_to_map(void *img, t_eng *e, int size, int color)
 {
@@ -48,12 +48,14 @@ void	pre_render(t_eng *e)
 
 void	render(t_eng *e)
 {
-	mlx_clear_window(e->mlx, e->win);
+	t_ab s;
+
+	//mlx_clear_window(e->mlx, e->win);
 	if (e->mmp.mode != -1 || e->mmp.mode != 2 )
 		mlx_put_image_to_window(e->mlx, e->win, e->mdg.img, 0, 0);
 	if (e->mmp.mode == -1 || e->mmp.mode == 2 )
 	{
-		mlx_put_image_to_window(e->mlx, e->win, e->lma.img, 0, 0);
+		//mlx_put_image_to_window(e->mlx, e->win, e->lma.img, 0, 0);
 		mlx_put_image_to_window(e->mlx, e->win, e->rma.img, 0, 0);
 	}
 	else if (e->mmp.mode == 0)
@@ -63,9 +65,22 @@ void	render(t_eng *e)
 	}
 	else if (e->mmp.mode == 1)
 	{
+		s.xa = 0;
+		s.ya = e->ply * e->mmp.fullb + e->mmp.minib * e->msy / 2;
+		s.xe = e->mmp.fullb * e->msx;
+		s.ye = e->mmp.fullb * e->msy;
+		render_map(e, &e->lma.img, e->mmp.fullb);
+		draw_full_rectangle(&e->lma, s, 0xff000000);
+		draw_full_rectangle(&e->rma, s, 0xff000000);
+		s.xa = e->plx * e->mmp.fullb + e->mmp.minib * e->msx / 2;
+		s.ya = 0;
+		s.ye = e->ply * e->mmp.fullb + e->mmp.minib * e->msy / 2;
+		draw_full_rectangle(&e->lma, s, 0xff000000);
+		draw_full_rectangle(&e->rma, s, 0xff000000);
 		mlx_put_image_to_window(e->mlx, e->win, e->lma.img, -e->plx * e->mmp.fullb + e->mmp.minib * e->msx / 2, -e->ply * e->mmp.fullb + e->mmp.minib * e->msy / 2);
 		mlx_put_image_to_window(e->mlx, e->win, e->rma.img, -e->plx * e->mmp.fullb + e->mmp.minib * e->msx / 2, -e->ply * e->mmp.fullb + e->mmp.minib * e->msy / 2);
 	}
+	//mlx_put_image_to_window(e->mlx, e->win, e->tex.no.img, 0, 0);
 }
 
 int		tick(t_eng *e)
@@ -73,6 +88,9 @@ int		tick(t_eng *e)
 	movement(e);
 	pre_render(e);
 	raycasting(e);
+	if (e->cnt.kf3)
+		my_put_string(&e->rma, "DJ EBAN!", (int)(e->plx * e->mmp.fullb * 0.5), (int)(e->ply * e->mmp.fullb * 0.5), 2);
 	render(e);
+	mlx_do_sync(e->mlx);
 	return (0);
 }

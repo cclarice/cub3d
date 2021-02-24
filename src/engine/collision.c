@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:33:05 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/16 02:38:40 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/19 02:39:01 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,4 @@ void	collision(t_eng *e)
 	i = 4;
 	while ((wall = in_wall(e)) && (i--))
 		push(e, wall, in);
-	if (i != 4)
-		ft_printf("\n");
 }

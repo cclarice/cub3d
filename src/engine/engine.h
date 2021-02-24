@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 02:35:16 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/16 23:01:55 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/24 08:06:30 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,28 @@
 **	PS	- Player Size
 */
 
+
+// PUT ME IN COLOR EBAN!
+# define Black	0x000000
+# define White	0xFFFFFF
+# define Red	0xFF0000
+# define Lime	0x00FF00
+# define Blue	0x0000FF
+# define Yellow	0xFFFF00
+# define Cyan	0x00FFFF
+# define Magent	0xFF00FF
+# define Silver	0xC0C0C0
+# define Gray	0xAAAAAA
+# define Maroon	0xAA4444
+# define Olive	0xAAAA44
+# define Green	0x44AA44
+# define Purple	0xAA44AA
+# define Teal	0x44AAAA
+# define Navy	0x4444AA
+
 # define P	M_PI
-# define PS	0.06//0.03
-# define FOV 70 * (P/180)
+# define PS	0.05//0.06 //0.03
+# define FOV 90 * (P/180)
 # define PSZ 0.3
 # define PHSZ 0.15
 
@@ -63,7 +82,8 @@ typedef struct	s_xpm
 **	https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 */
 
-typedef struct	s_img {
+typedef struct	s_img 
+{
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
@@ -118,6 +138,8 @@ typedef struct	s_cnt
 	short		kd;
 	short		kr;
 	short		kl;
+	short		kfl;
+	short		kfr;
 	short		kf3;
 	int			mx;
 	int			my;
@@ -221,6 +243,12 @@ typedef struct	s_eng
 	int			cec;
 	double		plx;
 	double		ply;
+	double		cax;
+	double		cay;
+	double		crx;
+	double		cry;
+	double		clx;
+	double		cly;
 	double		pla;
 	double		fov;
 	char		**m;
@@ -262,14 +290,14 @@ typedef struct	s_dts
 **	My own metod of raycasting
 **	Explained on Russian in explaination.*
 **
-**	hoU - Upper Horizontal
-**	hoD - Lower Horizontal
-**	veL - Left  Vertical
-**	veR - Right Vertical
-**	hLe - Lenght bethew Upper and Lower Horizontal
-**	vLe - Lenght bethew Left  and Right Vertical
-**	hRa - Current Horizontal Ray Position
-**	vRa - Current Vertical   Ray Position
+**	hou - Upper Horizontal
+**	hod - Lower Horizontal
+**	vel - Left  Vertical
+**	ver - Right Vertical
+**	vl  - Lenght bethew Left  and Right Vertical
+**	hl  - Lenght bethew Upper and Lower Horizontal
+**	vr  - Current Vertical   Ray Position
+**	hr  - Current Horizontal Ray Position
 */
 
 typedef struct	s_ray
@@ -279,10 +307,10 @@ typedef struct	s_ray
 	double		hod[2];
 	double		vel[2];
 	double		ver[2];
-	double		h_l[2];
-	double		v_l[2];
-	double		h_r[2];
-	double		v_r[2];
+	double		vl[3];
+	double		hl[3];
+	double		vr[2];
+	double		hr[2];
 }				t_ray;
 
 /*
@@ -326,29 +354,47 @@ typedef	struct	s_ab
 */
 
 void			other_init(t_eng *e, t_vars v, char **map);
-void			render_map(t_eng *e, t_img *img, int sizeb);
+void			render_map(t_eng *e, void *img, int sizeb);
+void	 		keyboard_init(t_eng *e);
+int				mouse_init(t_eng *e);
+void			window_init(t_eng *e, t_vars v);
 
 /*
 **	Engine
 */
 
+int				tick(t_eng *e);
 void			movement(t_eng *e);
 void			collision(t_eng *e);
 void			raycasting(t_eng *e);
 
-int				key_press(int key, t_eng *e)
-int				key_release(int key, t_eng *e)
-int				tick(t_eng *e)
+int				key_press(int key, t_eng *e);
+int				key_release(int key, t_eng *e);
+int				button_press(int hook, t_eng *e);
+int				button_release(int hook, t_eng *e);
+int				mouse_motion(int x, int y, t_eng *e);
+
+void			destroyer();
+int				expose(int hook, t_eng *e);
+int				destroy_notify(int hook, t_eng *e);
+
+void			get_rgb(int color, int *r, int *g, int *b);
+int				get_alpha(int argb);
+int				get_red(int argb);
+int				get_green(int argb);
+int				get_blue(int argb);
+
+void			my_put_string(t_img *img, char *str, int x, int y, int size);
 
 /*
 **	Utils
 */
 
-void			fill_img_with_color(t_img *data, int x, int y, int color);
+void			fill_img_with_color(void *img, int x, int y, int color);
 void			put_pixel_to_img(t_img *data, int x, int y, int color);
 void			engine(t_eng *e);
 void			cub_get_mapsize(char **map, int *x, int *y);
-void			my_put_string(t_img *img, char *str, int x, int y, int size);
+void			my_put_char(t_img *img, char c, int x, int y, int size);
 
 /*
 **	Draw
