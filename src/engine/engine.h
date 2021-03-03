@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 02:35:16 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/24 08:06:30 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:15:52 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define Navy	0x4444AA
 
 # define P	M_PI
-# define PS	0.05//0.06 //0.03
+# define PS	0.05 //0.06 //0.03
 # define FOV 90 * (P/180)
 # define PSZ 0.3
 # define PHSZ 0.15
@@ -71,6 +71,10 @@
 typedef struct	s_xpm
 {
 	void		*img;
+	char		*ptr;
+	int			bpp;
+	int			length;
+	int			endian;
 	int			w;
 	int			h;
 }				t_xpm;
@@ -250,6 +254,7 @@ typedef struct	s_eng
 	double		clx;
 	double		cly;
 	double		pla;
+	double		plb;
 	double		fov;
 	char		**m;
 	int			msx;
@@ -287,31 +292,37 @@ typedef struct	s_dts
 /*
 **	Struct Raycasting
 **
-**	My own metod of raycasting
-**	Explained on Russian in explaination.*
+**	My metod of raycasting
 **
-**	hou - Upper Horizontal
-**	hod - Lower Horizontal
-**	vel - Left  Vertical
-**	ver - Right Vertical
-**	vl  - Lenght bethew Left  and Right Vertical
-**	hl  - Lenght bethew Upper and Lower Horizontal
-**	vr  - Current Vertical   Ray Position
-**	hr  - Current Horizontal Ray Position
+**	ho[4] -	horizontal
+**	ve[4] - vertical
+**       ve[0] | ho[0] - x position
+**       ve[1] | ho[1] - y position
+**       ve[2] | ho[2] - x size between triangles
+**       ve[2] | ho[2] - y size between triangles
+**       ve[3] | ho[3] - lenght between player and block crossing
 */
 
 typedef struct	s_ray
 {
 	t_dts		dts;
-	double		hou[2];
-	double		hod[2];
-	double		vel[2];
-	double		ver[2];
-	double		vl[3];
-	double		hl[3];
-	double		vr[2];
-	double		hr[2];
+	double		ho[5];
+	double		ve[5];
 }				t_ray;
+
+//typedef struct	s_ray
+//{
+//	t_dts		dts;
+//	double		hou[2];
+//	double		vel[2];
+//	double		hod[2];
+//	double		ver[2];
+//	double		vl[3];
+//	double		hl[3];
+//	double		vr[2];
+//	double		hr[2];
+//
+//}				t_ray;
 
 /*
 **	Struct Block
@@ -367,6 +378,7 @@ int				tick(t_eng *e);
 void			movement(t_eng *e);
 void			collision(t_eng *e);
 void			raycasting(t_eng *e);
+void			raycasting_len(t_eng *e, t_ray *r, double a);
 
 int				key_press(int key, t_eng *e);
 int				key_release(int key, t_eng *e);
@@ -385,6 +397,7 @@ int				get_green(int argb);
 int				get_blue(int argb);
 
 void			my_put_string(t_img *img, char *str, int x, int y, int size);
+void			mouse_tick(t_eng *e);
 
 /*
 **	Utils

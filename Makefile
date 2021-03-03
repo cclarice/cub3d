@@ -6,7 +6,7 @@
 #    By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 06:18:45 by cclarice          #+#    #+#              #
-#    Updated: 2021/02/24 07:36:26 by cclarice         ###   ########.fr        #
+#    Updated: 2021/03/01 17:53:44 by cclarice         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ ENGINE		=	./src/engine/initialization.c   ./src/engine/initialization2.c \
 				./src/engine/tick.c                    ./src/engine/win_hook.c \
 				./src/engine/keyboard.c                   ./src/engine/mouse.c \
 				./src/engine/get_color.c                  ./src/engine/color.c \
+				./src/engine/raycasting_len.c              ./src/engine/math.c \
 				#./src/engine/engine.c \
 				./src/engine/control.c                 ./src/engine/movement.c \
 				./src/engine/mlx_utils.c                  ./src/engine/color.c \
@@ -55,15 +56,15 @@ all:
 $(NAME):		$(MLX) $(OBJS)
 				CC ${CFLAGS} $(LMLX) -o ${NAME} ${OBJS} ${LIBS}
 $(MLX):
-				@$(MAKE) -C mlx
-				@mv mlx/$(MLX) .
+				#@$(MAKE) -C mlx
+				#@mv mlx/$(MLX) .
 
 clean:	
-				@$(MAKE) -C mlx clean
+				#@$(MAKE) -C mlx clean
 				$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean:			clean
-				$(RM) $(NAME) $(MLX)
+				$(RM) $(NAME) #$(MLX)
 
 re:				fclean $(NAME)
 

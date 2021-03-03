@@ -26,10 +26,10 @@ void	engine(t_eng *e)
 	mlx_put_image_to_window(e->mlx, e->win, e->lma.img, 0, 0);
 	mlx_hook(e->win,	KeyPress			, 0L, &key_press			, e);
 	mlx_hook(e->win,	KeyRelease			, 0L, &key_release			, e);
-	mlx_hook(e->win,	ButtonPress			, 0L, &button_press			, e);
-	mlx_hook(e->win,	ButtonRelease		, 0L, &button_release		, e);
-	mlx_hook(e->win,	MotionNotify		, 0L, &mouse_motion			, e);
-	mlx_hook(e->win,	Expose				, 0L, &expose				, e);
+	//mlx_hook(e->win,	ButtonPress			, 0L, &button_press			, e);
+	//mlx_hook(e->win,	ButtonRelease		, 0L, &button_release		, e);
+	//mlx_hook(e->win,	MotionNotify		, 0L, &mouse_motion			, e);
+	//mlx_hook(e->win,	Expose				, 0L, &expose				, e);
 	mlx_hook(e->win,	DestroyNotify		, 0L, &destroy_notify		, e);
 	mlx_loop_hook(e->mlx, &tick, e);
 	mlx_loop(e->mlx);

@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 06:55:47 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/19 02:40:26 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/01 16:13:51 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	other_init(t_eng *e, t_vars v, char **map)
 		{
 			if (ft_strchar(PLAYER, map[y][x]))
 			{
-				e->plx = y + .5;
-				e->ply = x + .5;
+				e->plx = x + .5;
+				e->ply = y + .5;
 				map[y][x] == 'S' ? e->pla = 0 : 0;
 				map[y][x] == 'W' ? e->pla = P / 0.5 : 0;
 				map[y][x] == 'N' ? e->pla = P : 0;
@@ -63,6 +63,7 @@ void	other_init(t_eng *e, t_vars v, char **map)
 		x = 1;
 		y++;
 	}
+	e->plb = 1;
 	e->fov = FOV;
 	e->cnt.kw = 0;
 	e->cnt.ka = 0;

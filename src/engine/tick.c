@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 22:52:50 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/24 08:06:38 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:28:31 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ void	render(t_eng *e)
 
 	//mlx_clear_window(e->mlx, e->win);
 	if (e->mmp.mode != -1 || e->mmp.mode != 2 )
+	{
+		draw_dot(&e->mdg, e->rex / 2, e->rey / 2, 0xffffff);
 		mlx_put_image_to_window(e->mlx, e->win, e->mdg.img, 0, 0);
+	}
 	if (e->mmp.mode == -1 || e->mmp.mode == 2 )
 	{
-		//mlx_put_image_to_window(e->mlx, e->win, e->lma.img, 0, 0);
+		mlx_put_image_to_window(e->mlx, e->win, e->lma.img, 0, 0);
 		mlx_put_image_to_window(e->mlx, e->win, e->rma.img, 0, 0);
 	}
 	else if (e->mmp.mode == 0)
@@ -69,7 +72,6 @@ void	render(t_eng *e)
 		s.ya = e->ply * e->mmp.fullb + e->mmp.minib * e->msy / 2;
 		s.xe = e->mmp.fullb * e->msx;
 		s.ye = e->mmp.fullb * e->msy;
-		render_map(e, &e->lma.img, e->mmp.fullb);
 		draw_full_rectangle(&e->lma, s, 0xff000000);
 		draw_full_rectangle(&e->rma, s, 0xff000000);
 		s.xa = e->plx * e->mmp.fullb + e->mmp.minib * e->msx / 2;
@@ -79,15 +81,18 @@ void	render(t_eng *e)
 		draw_full_rectangle(&e->rma, s, 0xff000000);
 		mlx_put_image_to_window(e->mlx, e->win, e->lma.img, -e->plx * e->mmp.fullb + e->mmp.minib * e->msx / 2, -e->ply * e->mmp.fullb + e->mmp.minib * e->msy / 2);
 		mlx_put_image_to_window(e->mlx, e->win, e->rma.img, -e->plx * e->mmp.fullb + e->mmp.minib * e->msx / 2, -e->ply * e->mmp.fullb + e->mmp.minib * e->msy / 2);
+		render_map(e, &e->lma.img, e->mmp.fullb);
 	}
 	//mlx_put_image_to_window(e->mlx, e->win, e->tex.no.img, 0, 0);
 }
 
 int		tick(t_eng *e)
 {
+
 	movement(e);
 	pre_render(e);
 	raycasting(e);
+	mouse_tick(e);
 	if (e->cnt.kf3)
 		my_put_string(&e->rma, "DJ EBAN!", (int)(e->plx * e->mmp.fullb * 0.5), (int)(e->ply * e->mmp.fullb * 0.5), 2);
 	render(e);

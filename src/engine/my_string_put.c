@@ -97,7 +97,7 @@ void	my_put_string(t_img *img, char *str, int x, int y, int size)
 	int i;
 
 	i = 0;
-	ft_printf("my put string\n");
+	//ft_printf("my put string\n");
 	while (str[i] != '\0')
 	{
 		my_put_char(img, str[i], x, y, size);

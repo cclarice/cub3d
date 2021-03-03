@@ -16,7 +16,8 @@ int		mouse_init(t_eng *e)
 {
 	int mousey;
 	int mousex;
-	
+
+	mlx_mouse_hide();
 	mlx_mouse_move(e->win, e->rex / 2, e->rey / 2);
 	mlx_mouse_get_pos(e->win, &mousex, &mousey);
 	mlx_mouse_move(e->win, e->rex / 2, mousey);
@@ -28,26 +29,31 @@ int		mouse_init(t_eng *e)
 	return (0);
 }
 
-int		button_press(int hook, t_eng *e)
+//int		button_press(int hook, t_eng *e)
+//{
+//	int use;
+//
+//	use = hook + e->msx;
+//	return (0);
+//}
+//
+//int		button_release(int hook, t_eng *e)
+//{
+//	int use;
+//
+//	use = hook + e->msx;
+//	return (0);
+//}
+
+void	mouse_tick(t_eng *e)
 {
-	int use;
+	int x;
+	int y;
 
-	use = hook + e->msx;
-	return (0);
-}
-
-int		button_release(int hook, t_eng *e)
-{
-	int use;
-
-	use = hook + e->msx;
-	return (0);
-}
-
-int		mouse_motion(int x, int y, t_eng *e)
-{
-	int use;
-
-	use = x + y + e->msx;
-	return (0);
+	mlx_mouse_get_pos(e->win, &x, &y);
+	e->pla -= (x - e->rex / 2) * 0.00025;
+	e->plb -= (y - e->rey / 2) * 0.00025;
+	mlx_mouse_move(e->win, e->rex / 2, e->rey / 2);
+	mlx_mouse_get_pos(e->win, &x, &y);
+	mlx_mouse_move(e->win, e->rex / 2, y);
 }

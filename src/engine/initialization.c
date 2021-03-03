@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 06:55:47 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/24 07:37:04 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/02/27 09:12:16 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 **  no so we ea sp
 */
 
+
 int		textures_init(t_eng *e, t_tex *t, t_path pt)
 {
 	!(t->no.img = mlx_xpm_file_to_image(e->mlx, pt.no, &t->no.w, &t->no.h))
@@ -37,6 +38,11 @@ int		textures_init(t_eng *e, t_tex *t, t_path pt)
 			? ft_printf("Error\n\033[31mSprite texture is not found!\n") : 0;
 	if (!(t->no.img && t->so.img && t->we.img && t->ea.img && t->sp.img))
 		return (1);
+	t->no.ptr = mlx_get_data_addr(t->no.img, &t->no.bpp, &t->no.length, &t->no.endian);
+	t->so.ptr = mlx_get_data_addr(t->so.img, &t->so.bpp, &t->so.length, &t->so.endian);
+	t->we.ptr = mlx_get_data_addr(t->we.img, &t->we.bpp, &t->we.length, &t->we.endian);
+	t->ea.ptr = mlx_get_data_addr(t->ea.img, &t->ea.bpp, &t->ea.length, &t->ea.endian);
+	t->sp.ptr = mlx_get_data_addr(t->sp.img, &t->sp.bpp, &t->sp.length, &t->sp.endian);
 	return (0);
 }
 

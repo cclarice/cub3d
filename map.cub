@@ -1,21 +1,19 @@
-R 1600 1000
-WE ./assets/brick_w.xpm
-NO ./assets/brick_n.xpm
-EA ./assets/brick_e.xpm
-SO ./assets/brick_s.xpm
-S ./assets/brick.xpm
+R 3000 1500
+WE ./assets/wall_skull.xpm
+NO ./assets/wall_mossy.xpm
+EA ./assets/wall_wither.xpm
+SO ./assets/wall_pig.xpm
+S ./assets/lamp.xpm
 
 F 255,22,22
 C 111,18,18
 
-
-
-   1111111111  1
+  111111111111 1
   100000000001
-111N101010000111
+1110101010000111
 1000000010010001
 1010000010000001
-1000000000000011
+10N0000000000111
 11001010100001
-1 1010000000001
-11 11111111111
+1 101000000001
+11111111111111
