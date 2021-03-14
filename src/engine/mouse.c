@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 22:29:53 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/24 07:35:55 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:58:52 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 int		mouse_init(t_eng *e)
 {
-	int mousey;
-	int mousex;
-
-	mlx_mouse_hide();
-	mlx_mouse_move(e->win, e->rex / 2, e->rey / 2);
-	mlx_mouse_get_pos(e->win, &mousex, &mousey);
-	mlx_mouse_move(e->win, e->rex / 2, mousey);
+	if (e->mode != 2)
+		mlx_mouse_move(e->win, e->rex / 2, e->rey / 2);
 	e->cnt.mx = 0;
 	e->cnt.my = 0;
 	e->cnt.br = 0;
@@ -29,31 +24,36 @@ int		mouse_init(t_eng *e)
 	return (0);
 }
 
-//int		button_press(int hook, t_eng *e)
-//{
-//	int use;
-//
-//	use = hook + e->msx;
-//	return (0);
-//}
-//
-//int		button_release(int hook, t_eng *e)
-//{
-//	int use;
-//
-//	use = hook + e->msx;
-//	return (0);
-//}
+/*
+**int		button_press(int hook, t_eng *e)
+**{
+**	int use;
+**
+**	use = hook + e->msx;
+**	return (0);
+**}
+**
+**int		button_release(int hook, t_eng *e)
+**{
+**	int use;
+**
+**	use = hook + e->msx;
+**	return (0);
+**}
+*/
 
 void	mouse_tick(t_eng *e)
 {
 	int x;
 	int y;
 
-	mlx_mouse_get_pos(e->win, &x, &y);
-	e->pla -= (x - e->rex / 2) * 0.00025;
-	e->plb -= (y - e->rey / 2) * 0.00025;
-	mlx_mouse_move(e->win, e->rex / 2, e->rey / 2);
-	mlx_mouse_get_pos(e->win, &x, &y);
-	mlx_mouse_move(e->win, e->rex / 2, y);
+	if (e->mode != 2)
+	{
+		mlx_mouse_get_pos(e->win, &x, &y);
+		e->pla -= (x - e->rex / 2) * 0.00025;
+		e->plb -= (y - e->rey / 2) * 0.00025;
+		mlx_mouse_move(e->win, e->rex / 2, e->rey / 2);
+		mlx_mouse_get_pos(e->win, &x, &y);
+		mlx_mouse_move(e->win, e->rex / 2, y);
+	}
 }

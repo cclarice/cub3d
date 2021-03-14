@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 04:47:30 by cclarice          #+#    #+#             */
-/*   Updated: 2021/01/27 04:48:20 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 10:37:29 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		create_rgb(int r, int g, int b)
 {
-	return(r << 16 | g << 8 | b);
+	return (r << 16 | g << 8 | b);
 }
 
 int		get_r(int rgb)

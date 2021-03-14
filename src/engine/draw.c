@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 20:00:59 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/21 00:52:10 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:42:53 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,39 @@
 **  A
 **	 ####
 **       ####
-**           ####    
+**           ####
 **               ####
 **                   B
 */
 
-void		draw_line(t_img *img, t_ab s, int color)
-{
-	const int dx = abs(s.xe - s.xa);
-	const int dy = abs(s.ye - s.ya);
-	const int sx = s.xa < s.xe ? 1 : -1;
-	const int sy = s.ya < s.ye ? 1 : -1;
-	int error = dx - dy;
-	int error2;
-
-	put_pixel_to_img(img, s.xe, s.ye, color);
-	while (s.xa != s.xe || s.ya != s.ye) 
-	{
-		put_pixel_to_img(img, s.xa, s.ya, color);
-		error2 = error * 2;
-		if (error2 > -dy) 
-		{
-			error -= dy;
-			s.xa += sx;
-		}
-		if (error2 < dx) 
-		{
-			error += dx;
-			s.ya += sy;
-		}
-	}
-}
+/*
+**	void	draw_line(t_img *img, t_ab s, int color)
+**	{
+**		const int	dx = abs(s.xe - s.xa);
+**		const int	dy = abs(s.ye - s.ya);
+**		const int	sx = s.xa < s.xe ? 1 : -1;
+**		const int	sy = s.ya < s.ye ? 1 : -1;
+**		int			error = dx - dy;
+**		int			error2;
+**
+**		put_pixel_to_img(img, s.xe, s.ye, color);
+**		while (s.xa != s.xe || s.ya != s.ye)
+**		{
+**			put_pixel_to_img(img, s.xa, s.ya, color);
+**			error2 = error * 2;
+**			if (error2 > -dy)
+**			{
+**				error -= dy;
+**				s.xa += sx;
+**			}
+**			if (error2 < dx)
+**			{
+**				error += dx;
+**				s.ya += sy;
+**			}
+**		}
+**	}
+*/
 
 /*
 **		Draw Rectangle
@@ -100,6 +102,7 @@ void	draw_full_rectangle(t_img *img, t_ab s, int color)
 		s.ya++;
 	}
 }
+
 /*
 **		Draw Dot
 **
@@ -131,18 +134,20 @@ void	draw_dot(t_img *img, int x, int y, int color)
 **		   #
 */
 
-void	draw_arrow(t_img *img, t_ab s, int size, double angle, int color)
-{
-	int salo;
-
-	salo = size * PSZ * 0.25;
-	s.xe = sin(angle + P * 1.25) * salo + s.xa;
-	s.ye = cos(angle + P * 1.25) * salo + s.ya;
-	draw_line(img, s, color);
-	s.xe = sin(angle + P) * salo + s.xa;
-	s.ye = cos(angle + P) * salo + s.ya;
-	draw_line(img, s, color);
-	s.xe = sin(angle - P * 1.25) * salo + s.xa;
-	s.ye = cos(angle - P * 1.25) * salo + s.ya;
-	draw_line(img, s, color);
-}
+/*
+**	void	draw_arrow(t_img *img, t_ab s, int size, double angle, int color)
+**	{
+**		int salo;
+**
+**		salo = size * PSZ * 0.25;
+**		s.xe = sin(angle + P * 1.25) * salo + s.xa;
+**		s.ye = cos(angle + P * 1.25) * salo + s.ya;
+**		draw_line(img, s, color);
+**		s.xe = sin(angle + P) * salo + s.xa;
+**		s.ye = cos(angle + P) * salo + s.ya;
+**		draw_line(img, s, color);
+**		s.xe = sin(angle - P * 1.25) * salo + s.xa;
+**		s.ye = cos(angle - P * 1.25) * salo + s.ya;
+**		draw_line(img, s, color);
+**	}
+*/

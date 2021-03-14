@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 06:57:07 by cclarice          #+#    #+#             */
-/*   Updated: 2020/12/25 08:07:04 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:36:26 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_putstr(char *str, int n)
 	return (c);
 }
 
-int		ft_strlen(char *str)
+int		ft_strlen(const char *str)
 {
 	int n;
 

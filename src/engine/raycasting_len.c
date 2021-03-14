@@ -5,129 +5,130 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/27 15:57:51 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/01 18:52:23 by cclarice         ###   ########.fr       */
+/*   Created: 2021/03/09 22:03:00 by cclarice          #+#    #+#             */
+/*   Updated: 2021/03/14 10:09:46 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
-void	vertical_ray(t_eng *e, t_ray *r, double a)
+void	vertical_ray(t_eng *e, t_ray *r)
 {
-	if (a > P)
+	if (r->a > P)
 	{
-		r->ve[0] = ((int)e->plx);
-		r->ve[1] = (e->ply - (e->plx - (int)e->plx) * (1 / tan(a)));
-		r->ve[2] = -1;
-		r->ve[3] = -1 / (e->plx - (int)e->plx) * (e->ply - r->ve[1]);
-		while ((int)r->ve[0] >= 0 && (int)r->ve[0] < e->msx && (int)r->ve[1] >= 0 && (int)r->ve[1] < e->msy && e->m[(int)r->ve[1]][(int)r->ve[0] - 1] != '1')
+		r->vx = ((int)e->plx);
+		r->vy = (e->ply - (e->plx - (int)e->plx) * (1 / tan(r->a)));
+		r->vc = -1 / (e->plx - (int)e->plx) * (e->ply - r->vy);
+		while ((int)r->vx > 0 && (int)r->vy > 0 && (int)r->vy < e->msy &&
+										e->m[(int)r->vy][(int)r->vx - 1] != '1')
 		{
-			r->ve[1] += r->ve[3];
-			r->ve[0] += r->ve[2];
+			r->vx--;
+			r->vy += r->vc;
 		}
 	}
 	else
 	{
-		r->ve[0] = ((int)e->plx + 1);
-		r->ve[1] = (e->ply - ((int)e->plx + 1 - e->plx) * (1 / -tan(a)));
-		r->ve[2] = 1;
-		r->ve[3] = -1 / ((int)e->plx + 1 - e->plx) * (e->ply - r->ve[1]);
-		while ((int)r->ve[0] >= 0 && (int)r->ve[0] < e->msx && (int)r->ve[1] >= 0 && (int)r->ve[1] < e->msy && e->m[(int)r->ve[1]][(int)r->ve[0]] != '1')
+		r->vx = ((int)e->plx + 1);
+		r->vy = (e->ply - ((int)e->plx + 1 - e->plx) * (1 / -tan(r->a)));
+		r->vc = -1 / ((int)e->plx + 1 - e->plx) * (e->ply - r->vy);
+		while ((int)r->vx < e->msx && (int)r->vy > 0 && (int)r->vy < e->msy &&
+										e->m[(int)r->vy][(int)r->vx] != '1')
 		{
-			r->ve[1] += r->ve[3];
-			r->ve[0] += r->ve[2];
+			r->vx++;
+			r->vy += r->vc;
 		}
 	}
-	r->ve[4] = sqrt((e->plx - r->ve[0]) * (e->plx - r->ve[0]) + (e->ply - r->ve[1]) * (e->ply - r->ve[1]));
 }
 
-void	horisontal_ray(t_eng *e, t_ray *r, double a)
+void	horisontal_ray(t_eng *e, t_ray *r)
 {
-	if (a > P * 0.5 && a < P * 1.5)
+	if (r->a >= P * 0.5 && r->a < P * 1.5)
 	{
-		r->ho[0] = (e->plx - (e->ply - (int)e->ply) * tan(a));
-		r->ho[1] = ((int)e->ply);
-		r->ho[2] = -1 / (e->ply - (int)e->ply) * (e->plx - r->ho[0]);
-		r->ho[3] = -1;
-		while ((int)r->ho[0] >= 0 && (int)r->ho[0] < e->msx && (int)r->ho[1] >= 0 && (int)r->ho[1] < e->msy && e->m[(int)r->ho[1] - 1][(int)r->ho[0]] != '1')
+		r->hx = (e->plx - (e->ply - (int)e->ply) * tan(r->a));
+		r->hy = ((int)e->ply);
+		r->hc = -1 / (e->ply - (int)e->ply) * (e->plx - r->hx);
+		while ((int)r->hx > 0 && (int)r->hx < e->msx && (int)r->hy > 0 &&
+										e->m[(int)r->hy - 1][(int)r->hx] != '1')
 		{
-			r->ho[0] += r->ho[2];
-			r->ho[1] += r->ho[3];
+			r->hx += r->hc;
+			r->hy--;
 		}
 	}
 	else
 	{
-		r->ho[0] = (e->plx - ((int)e->ply + 1 - e->ply) * -tan(a));
-		r->ho[1] = ((int)e->ply + 1);
-		r->ho[2] = -1 / ((int)e->ply + 1 - e->ply) * (e->plx - r->ho[0]);
-		r->ho[3] = 1;
-		while ((int)r->ho[0] >= 0 && (int)r->ho[0] < e->msx && (int)r->ho[1] >= 0 && (int)r->ho[1] < e->msy && e->m[(int)r->ho[1]][(int)r->ho[0]] != '1')
+		r->hx = (e->plx - ((int)e->ply + 1 - e->ply) * -tan(r->a));
+		r->hy = ((int)e->ply + 1);
+		r->hc = -1 / ((int)e->ply + 1 - e->ply) * (e->plx - r->hx);
+		while ((int)r->hx > 0 && (int)r->hx < e->msx && (int)r->hy < e->msy &&
+										e->m[(int)r->hy][(int)r->hx] != '1')
 		{
-			r->ho[0] += r->ho[2];
-			r->ho[1] += r->ho[3];
+			r->hx += r->hc;
+			r->hy++;
 		}
 	}
-	r->ho[4] = sqrt((e->plx - r->ho[0]) * (e->plx - r->ho[0]) + (e->ply - r->ho[1]) * (e->ply - r->ho[1]));
 }
 
-//void	ray_fire()
-//{
-//	int hit;
-//	const int ve = (a > P) ? 1 : 0;
-//	const int ho = (a > P * 0.5 && a < P * 1.5) ? 1 : 0;
-//
-//	hit = 0;
-//	while (!hit)
-//	{
-//		if (r->ve < ho)
-//		{
-//			r->ve[1] += r->ve[3];
-//			r->ve[0] += r->ve[2];
-//			if (e->m[(int)r->ve[1]][(int)r->ve[0] - ve] != '1')
-//			{
-//				hit++;
-//				r->ve[4] = sqrt((e->plx - r->ve[0]) * (e->plx - r->ve[0]) + (e->ply - r->ve[1]) * (e->ply - r->ve[1]));
-//			}
-//		}
-//		else
-//		{
-//			r->ho[0] += r->ho[2];
-//			r->ho[1] += r->ho[3];
-//			if (e->m[(int)r->ve[1]][(int)r->ve[0] - ho] != '1')
-//			{
-//				hit++;
-//				r->ho[4] = sqrt((e->plx - r->ho[0]) * (e->plx - r->ho[0]) + (e->ply - r->ho[1]) * (e->ply - r->ho[1]));
-//			}
-//		}
-//	}
-//}
-
-void	ray_to_map(t_eng *e, t_ray *r)
+void	raycastings(t_eng *e, t_ray r)
 {
-	t_ab s;
-
-	s.xa = e->plx * e->mmp.fullb;
-	s.ya = e->ply * e->mmp.fullb;
-	if (r->ve[4] > r->ho[4] && r->ho[0] > 0.1 && r->ho[1] > 0.1 && r->ho[0] < e->msx - 0.1)
+	if (r.a >= P * 2)
+		r.a -= P * 2;
+	else if (r.a < 0)
+		r.a += P * 2;
+	raycasting_len(e, &r);
+	if (r.vl >= r.hl)
 	{
-		s.xe = r->ho[0] * e->mmp.fullb;
-		s.ye = r->ho[1] * e->mmp.fullb;
-		draw_line(&(e->rma), s, 0xaaffffff);
-		draw_dot(&(e->rma), (r->ho[0]) * e->mmp.fullb, (r->ho[1]) * e->mmp.fullb, 0xffffff);
+		if (r.a > P * 0.5 && r.a < P * 1.5)
+			calc_line(e, &r, &e->tex.we,
+				abs((int)(e->tex.we.w * (r.hx - (int)r.hx))));
+		else
+			calc_line(e, &r, &e->tex.ea,
+				abs((int)(e->tex.ea.w * (r.hx - (int)r.hx - 1))));
+		e->dst[e->rex - r.c] = r.hl;
 	}
-	else if (r->ve[0] > 0.1 && r->ve[1] > 0.1 && r->ve[1] < e->msy - 0.1)
+	else
 	{
-		s.xe = r->ve[0] * e->mmp.fullb;
-		s.ye = r->ve[1] * e->mmp.fullb;
-		draw_line(&(e->rma), s, 0xaaffffff);
-		draw_dot(&(e->rma), r->ve[0] * e->mmp.fullb, r->ve[1] * e->mmp.fullb, 0xffffff);
+		if (r.a > P)
+			calc_line(e, &r, &e->tex.no,
+				abs((int)(e->tex.no.w * (r.vy - (int)r.vy - 1))));
+		else
+			calc_line(e, &r, &e->tex.so,
+				abs((int)(e->tex.so.w * (r.vy - (int)r.vy))));
+		e->dst[e->rex - r.c] = r.vl;
 	}
 }
 
-void	raycasting_len(t_eng *e, t_ray *r, double a)
+void	init_rays(t_eng *e, t_ray r)
 {
-	vertical_ray(e, r, a);
-	horisontal_ray(e, r, a);
-	if (e->mmp.mode == 2)
-		ray_to_map(e, r);
+	r.a = e->pla;
+	r.c = e->rex / 2;
+	while (r.c >= -(e->rex / 2))
+	{
+		e->ray[r.c] = r.a - e->pla;
+		if (e->fov < P * 1.5)
+			r.a -= r.s * cos(e->pla - r.a);
+		else
+			r.a -= r.s;
+		r.c--;
+	}
+	r.c = e->rex / 2 + 1;
+	r.a = e->pla;
+	while (r.c < e->rex + e->rex / 2)
+	{
+		e->ray[r.c] = r.a - e->pla;
+		if (e->fov < P * 1.5)
+			r.a += r.s * cos(e->pla - r.a);
+		else
+			r.a += r.s;
+		r.c++;
+	}
+}
+
+void	raycasting_len(t_eng *e, t_ray *r)
+{
+	vertical_ray(e, r);
+	horisontal_ray(e, r);
+	r->vl = sqrt((e->plx - r->vx) * (e->plx - r->vx) +
+				(e->ply - r->vy) * (e->ply - r->vy));
+	r->hl = sqrt((e->plx - r->hx) * (e->plx - r->hx) +
+				(e->ply - r->hy) * (e->ply - r->hy));
 }

@@ -5,115 +5,93 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/27 14:38:26 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/01 17:31:02 by cclarice         ###   ########.fr       */
+/*   Created: 2021/03/07 15:54:40 by cclarice          #+#    #+#             */
+/*   Updated: 2021/03/14 10:06:47 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
-unsigned int	get_pixel_from_xmp(t_xpm *xpm, double xx, double yy)
-{
-	unsigned int color;
-	char *dst;
-	int x;
-	int y;
+#define EBAN ((double)e->rex / (double)e->rey)
+#define MAP_LEN (double)(e->msx >= e->msy ? e->msx * 1.42 : e->msy * 1.42)
 
-	xx = fabs(xx);
-	yy = fabs(yy);
-	x = (int)(xpm->w * xx);
-	y = (int)(xpm->h * yy);
-	dst = NULL;
-	dst = xpm->ptr + (y * xpm->length + x * (xpm->bpp / 8));
-	color = *(unsigned int*)dst;
-	return (color);
+unsigned char	*get_pafxmp(t_xpm *xpm, int x, double yy)
+{
+	return
+	((unsigned char *)xpm->ptr + abs((int)(xpm->h * yy)) * xpm->length + x);
 }
 
-void	ver_line(t_eng *e, int x, int *draw, t_xpm *xpm, double xx, double shade)
+void			draw_wall(t_eng *e, t_xpm *xpm, int *d, float shade)
 {
-	const int	up = draw[0];
-	const int	down = draw[1];
-	const int	diapazon = down - up;
-	unsigned int color = (int)shade;
+	const int		up = d[0];
+	const int		range = d[1] - up;
+	unsigned char	*color;
+	unsigned int	shaded;
 
-	if (draw[0] < 0)
-		draw[0] = 0;
-	if (draw[1] >= e->rey)
-		draw[1] = e->rey - 1;
-	while (draw[0] < draw[1])
+	if (d[0] < 0)
+		d[0] = 0;
+	if (d[1] >= e->rey)
+		d[1] = e->rey;
+	while (d[0] < d[1])
 	{
-		color = get_pixel_from_xmp(xpm, xx, (up - (double)draw[0]) / (double)diapazon);
-		put_pixel_to_img(&e->mdg, x, draw[0],
-			((int)((get_red(color) >> 16) * shade) << 16) + 
-			((int)((get_green(color) >> 8) * shade) << 8) +
-			(int)(get_blue(color) * shade));
-		draw[0]++;
+		color = get_pafxmp(xpm, d[3], (up - d[0]) / (float)range);
+		shaded = ((unsigned char)(color[2] * shade) << 16) +
+				((unsigned char)(color[1] * shade) << 8) +
+				(unsigned char)(color[0] * shade);
+		while (d[0] < d[1] && get_pafxmp(xpm, d[3],
+										(up - d[0]) / (float)range) <= color)
+			put_pixel_to_img(&e->mdg, d[2], d[0]++, shaded);
 	}
 }
 
-void	calc_line(t_eng *e, double walldist, int x, int type, double dif)
+void			ver_line(t_eng *e, t_xpm *xpm, int *d, float shade)
 {
-	//Calculate height of line to draw on screen
-	const int height = (int)(e->rey / walldist * (P * 0.5 / e->fov));
-	//calculate lowest and highest pixel to fill in current stripe
-	int draw[2];
+	int	ceil;
 
-	draw[0] = -height * 0.5 + e->rey * 0.5 * e->plb;
-	draw[1] =  height * 0.5 + e->rey * 0.5 * e->plb;
-	if (type == 1)
-		ver_line(e, e->rex - x, draw, &e->tex.no, 1 + dif, 1 - walldist / e->msx);
-	else if (type == 2)
-		ver_line(e, e->rex - x, draw, &e->tex.we, dif, 1 - walldist / e->msx);
-	else if (type == 3)
-		ver_line(e, e->rex - x, draw, &e->tex.ea, 1 + dif, 1 - walldist / e->msx);
-	else
-		ver_line(e, e->rex - x, draw, &e->tex.so, dif, 1 - walldist / e->msx);
+	ceil = d[0] - 1;
+	while (ceil >= 0 && get_pixel_from_img(&e->mdg, d[2], ceil) != e->cec)
+		put_pixel_to_img(&e->mdg, d[2], ceil--, e->cec);
+	draw_wall(e, xpm, d, shade);
+	while (d[0] < e->rey && get_pixel_from_img(&e->mdg, d[2], d[0]) != e->flc)
+		put_pixel_to_img(&e->mdg, d[2], d[0]++, e->flc);
 }
 
-void	raycasting(t_eng *e)
+void			calc_line(t_eng *e, t_ray *r, t_xpm *xpm, int xx)
+{
+	float	wd;
+	int		height;
+	float	shade;
+	int		d[4];
+
+	if (e->fov < P * 1.5)
+		wd = (r->vl > r->hl ? r->hl : r->vl) * fabs(cos(e->pla - r->a));
+	else
+		wd = (r->vl > r->hl ? r->hl : r->vl);
+	height = (int)(e->rey / wd * (P * 0.31 / e->fov) * EBAN);
+	shade = 1 - wd / MAP_LEN;
+	d[0] = -height * 0.5 + e->rey * 0.5 * e->plb;
+	d[1] = +height * 0.5 + e->rey * 0.5 * e->plb;
+	d[2] = e->rex - r->c;
+	d[3] = xx * 4;
+	ver_line(e, xpm, d, shade);
+}
+
+void			raycasting(t_eng *e)
 {
 	t_ray	r;
-	double	a;
-	double	one;
-	int		cur;
-	double	dif;
 
-	cur = e->rex / 2;
-	a = e->pla;
-	one = (e->fov / (e->rex));
-	dif = e->pla + e->fov / 2;
-	fill_img_with_color(&(e->mdg), e->rex, e->rey, 0x0);
-	while (cur > 0)
+	r.s = e->fov / (e->rex);
+	init_rays(e, r);
+	r.a = e->pla;
+	r.c = 0;
+	while (r.c < e->rex)
 	{
-		if (a >= P * 2)
-			a -= P * 2;
-		else if (a < 0)
-			a += P * 2;
-		raycasting_len(e, &r, a);
-		if (r.ve[4] > r.ho[4])
-			calc_line(e, r.ho[4] * fabs(cos(e->pla - a)), cur, (a > P * 0.5 && a < P * 1.5) ? 2 : 3, (int)r.ho[0] - r.ho[0]);
-		else
-			calc_line(e, r.ve[4] * fabs(cos(e->pla - a)), cur, (a > P) ? 1 : 0, (int)r.ve[1] - r.ve[1]);
-		a -= one * cos(e->pla - a);
-		cur--;
+		r.a = e->ray[r.c] + e->pla;
+		raycastings(e, r);
+		r.c++;
 	}
-	cur = e->rex / 2;
-	a = e->pla;
-	while (cur < e->rex)
-	{
-		if (a >= P * 2)
-			a -= P * 2;
-		else if (a < 0)
-			a += P * 2;
-		raycasting_len(e, &r, a);
-		if (r.ve[4] > r.ho[4])
-			calc_line(e, r.ho[4] * fabs(cos(e->pla - a)), cur, (a > P * 0.5 && a < P * 1.5) ? 2 : 3, (int)r.ho[0] - r.ho[0]);
-		else
-			calc_line(e, r.ve[4] * fabs(cos(e->pla - a)), cur, (a > P) ? 1 : 0, (int)r.ve[1] - r.ve[1]);
-		a += one * cos(e->pla - a);
-		cur++;
-	}
-	draw_dot(&(e->rma), e->plx * e->mmp.fullb, e->ply * e->mmp.fullb, 0xffffff);
-	draw_dot(&(e->rma), e->crx * e->mmp.fullb, e->cry * e->mmp.fullb, 0xff0000);
-	draw_dot(&(e->rma), e->clx * e->mmp.fullb, e->cly * e->mmp.fullb, 0x00ff00);
+	if (e->spr)
+		sprites(e);
+	else
+		ft_printf("Fuck\n");
 }

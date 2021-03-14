@@ -6,12 +6,11 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 06:56:02 by cclarice          #+#    #+#             */
-/*   Updated: 2020/12/25 14:33:33 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:28:58 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int		ft_hexlen(long n, char h)
 {
@@ -64,7 +63,6 @@ int		ft_printf_hex(t_frmt *s, unsigned long n, char h)
 	else
 	{
 		s->p += ft_ps((long)s->n - s->l - (s->d >= s->l ? s->d - s->l : 0));
-		s->p += ft_pz((long)s->d - s->l);
 		n == 0 && s->d == 0 && s->n != 0 && s->n != MIN ? s->p += ft_ps(1) : 0;
 		h == 'p' ? s->p += ft_putox(n, s->d) : 0;
 		n != 0 || s->d != 0 ? ft_puthex(n, h) : 0;

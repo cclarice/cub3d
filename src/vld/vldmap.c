@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 11:01:46 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/09 10:12:41 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:13:20 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,17 @@ char	*alloc_row(int x, char c)
 
 char	**alloc_map(int x, int y, char *text)
 {
-	char **map;
-	int i;
+	char	**map;
+	int		i;
 
 	i = 0;
-	if (!(map = (char **)malloc(sizeof(char *) * y + 1)))
-		return (NULL);
-	if (!(map[y] = alloc_row(x, '\0')))
+	if (!(map = (char **)malloc(sizeof(char *) * y + 1)) ||
+		!(map[y] = alloc_row(x, '\0')))
 		return (NULL);
 	y--;
 	while (y >= 0)
-	{
-		if (!(map[y] = alloc_row(x, ' ')))
+		if (!(map[y--] = alloc_row(x, ' ')))
 			return (NULL);
-		y--;
-	}
 	x = 0;
 	y = 0;
 	while (text[i] != 0)
@@ -55,11 +51,7 @@ char	**alloc_map(int x, int y, char *text)
 			i++;
 		}
 		else
-		{
-			map[y][x] = text[i];
-			x++;
-			i++;
-		}
+			map[y][x++] = text[i++];
 	}
 	return (map);
 }
@@ -108,20 +100,21 @@ void	check_spaces(char *m, int *e)
 		e[26] = 0;
 }
 
+/*
+**	ei[26] != 0
+*/
+
 void	vldmap(char *map, int *ei, char ***m)
 {
 	int i;
 
 	i = 0;
-	ei[19] = map[0] != '\0' ? -1 : 0;
+	ei[19] = (map[0] != '\0' ? -1 : 0);
 	check_spaces(map, ei);
-	if (ei[19] != 0 || ei[25] != 0 || ei[26] != 0)
+	if (ei[19] != 0 && ei[25] != 0)
 	{
 		*m = get_map3d(map);
 		validmap(*m, ei);
 	}
 	free(map);
 }
-
-
-

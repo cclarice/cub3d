@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 19:28:37 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/09 11:40:11 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 10:54:55 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,13 @@
 
 /*
 **	open, close, read, write, malloc, free, exit
-**
-**
-**
-**
 */
 
-#include "./printf/ft_printf.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <math.h>
-#include "mlx/mlx.h"
-
-/*
-** Printf !!!
-*/
-
-#include <stdio.h>
+# include "./printf/ft_printf.h"
+# include <fcntl.h>
+# include <stdlib.h>
+# include <math.h>
+# include "../mlx/mlx.h"
 
 typedef struct	s_path
 {

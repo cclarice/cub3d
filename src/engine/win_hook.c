@@ -6,13 +6,13 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 22:31:08 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/24 07:35:18 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 10:31:17 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
-void	destroyer()
+void	destroyer(void)
 {
 	exit(0);
 }

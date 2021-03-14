@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:47:12 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/19 02:04:45 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:59:58 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	check_control(t_cnt *c)
 	if (c->kw && c->ks)
 	{
 		c->kw = 0;
-		c->ks = 0; 
+		c->ks = 0;
 	}
 	if (c->ka && c->kd)
 	{
@@ -29,7 +29,7 @@ void	check_control(t_cnt *c)
 void	player_move(t_eng *e, t_cnt c)
 {
 	double ang;
-	
+
 	ang = 0;
 	check_control(&c);
 	if (c.kw && c.kd)
@@ -59,15 +59,13 @@ void	rotating(t_eng *e)
 {
 	if (e->pla >= P * 2)
 		e->pla -= P * 2;
-	else if(e->pla < 0)
+	else if (e->pla < 0)
 		e->pla += P * 2;
 	if (!e->cnt.kr && e->cnt.kl)
 		e->pla += PS;
 	else if (e->cnt.kr && !e->cnt.kl)
 		e->pla -= PS;
 }
-
-
 
 void	movement(t_eng *e)
 {

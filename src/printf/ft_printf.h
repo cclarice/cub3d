@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 16:34:30 by cclarice          #+#    #+#             */
-/*   Updated: 2021/01/23 21:10:41 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:37:18 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_frmt
 	int			p;
 }				t_frmt;
 
+int				ft_strlen(const char *str);
 void			ft_putchar(char c);
 int				ft_isdigit(char c);
 int				ft_isflag(char c);

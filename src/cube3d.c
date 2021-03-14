@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:33:10 by cclarice          #+#    #+#             */
-/*   Updated: 2021/02/26 02:08:59 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 08:57:28 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,21 @@ void	info(t_map m)
 	ft_printf("\033[93m[ =================== ]\n");
 }
 
-/*
-**	if ((c >= 3 && ft_strstr(v[2], "--save") ||
-**		(c >= 4 && ft_strstr(v[3], "--save"))))
-**		ft_printf("--save ON\n");
-**	if ((c >= 3 && ft_strstr(v[2], "--debug") ||
-**		(c >= 3 && ft_strstr(v[3], "--debug"))))
-**		ft_printf("--debug ON\n");
-*/
-
 int		main(int c, char **v)
 {
 	t_map	m;
 
 	m = init_map();
-	if (c >= 3 && ft_strstr(v[2], "--save"))
-		m.vr.mode = 1;
-	else if (c >= 3 && ft_strstr(v[2], "--debug"))
-		m.vr.mode = 2;
-	else
-		m.vr.mode = 0;
 	if (check_dotcub(v[1]))
 		return (0);
 	if (c >= 2 && (m.cub = file_to_str(v[1], get_file_size(v[1]))))
 	{
-	 	if (vld(m.cub, &m.map, &m.pt, &m.vr))
-				initialization(m.pt, m.vr, m.map);
+		if (c >= 3 && ft_strstr(v[2], "--save"))
+			m.vr.mode = 2;
+		else
+			m.vr.mode = 0;
+		if (vld(m.cub, &m.map, &m.pt, &m.vr))
+			initialization(m.pt, m.vr, m.map);
 	}
 	else
 		return (NO_MAP);

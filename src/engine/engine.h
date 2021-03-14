@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 02:35:16 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/01 19:15:52 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 10:16:40 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define ENGINE_H
 
 # include "../cube3d.h"
+# include "../utils/lists/lists.h"
+# include "bmp/bmp_utils.h"
 
 /*
 **	P   - mathematical constant
@@ -22,27 +24,27 @@
 **	PS	- Player Size
 */
 
-
-// PUT ME IN COLOR EBAN!
-# define Black	0x000000
-# define White	0xFFFFFF
-# define Red	0xFF0000
-# define Lime	0x00FF00
-# define Blue	0x0000FF
-# define Yellow	0xFFFF00
-# define Cyan	0x00FFFF
-# define Magent	0xFF00FF
-# define Silver	0xC0C0C0
-# define Gray	0xAAAAAA
-# define Maroon	0xAA4444
-# define Olive	0xAAAA44
-# define Green	0x44AA44
-# define Purple	0xAA44AA
-# define Teal	0x44AAAA
-# define Navy	0x4444AA
+/*
+**	# define Black	0x000000
+**	# define White	0xFFFFFF
+**	# define Red	0xFF0000
+**	# define Lime	0x00FF00
+**	# define Blue	0x0000FF
+**	# define Yellow	0xFFFF00
+**	# define Cyan	0x00FFFF
+**	# define Magent	0xFF00FF
+**	# define Silver	0xC0C0C0
+**	# define Gray	0xAAAAAA
+**	# define Maroon	0xAA4444
+**	# define Olive	0xAAAA44
+**	# define Green	0x44AA44
+**	# define Purple	0xAA44AA
+**	# define Teal	0x44AAAA
+**	# define Navy	0x4444AA
+*/
 
 # define P	M_PI
-# define PS	0.05 //0.06 //0.03
+# define PS	0.05
 # define FOV 90 * (P/180)
 # define PSZ 0.3
 # define PHSZ 0.15
@@ -51,10 +53,15 @@
 **	Initialization Defines
 */
 
+/*
+**	# define MSW 320
+**	# define MSH 240
+*/
+
+# define MSW 1
+# define MSH 1
 # define NAME "cclarice's cub3d"
 # define NAME_D "cclarice's cub3d (debug mode)"
-# define MSW 320
-# define MSH 240
 # define WWC ft_printf("\033[36mWarning! Wight was changed to %d!\n", e->rex)
 # define HWC ft_printf("\033[36mWarning! Height was changed to %d!\n", e->rey)
 
@@ -68,32 +75,16 @@
 **	h	- height of image
 */
 
-typedef struct	s_xpm
+typedef struct		s_xpm
 {
-	void		*img;
-	char		*ptr;
-	int			bpp;
-	int			length;
-	int			endian;
-	int			w;
-	int			h;
-}				t_xpm;
-
-/*
-**	Struct Image
-**
-**	s_data from 42 docs
-**	https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
-*/
-
-typedef struct	s_img 
-{
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-}				t_img;
+	void			*img;
+	char			*ptr;
+	int				bpp;
+	int				length;
+	int				endian;
+	int				w;
+	int				h;
+}					t_xpm;
 
 /*
 **	Struct Textures
@@ -107,14 +98,14 @@ typedef struct	s_img
 **	sp - Sprite texture
 */
 
-typedef struct	s_tex
+typedef struct		s_tex
 {
-	t_xpm		no;
-	t_xpm		so;
-	t_xpm		we;
-	t_xpm		ea;
-	t_xpm		sp;
-}				t_tex;
+	t_xpm			no;
+	t_xpm			so;
+	t_xpm			we;
+	t_xpm			ea;
+	t_xpm			sp;
+}					t_tex;
 
 /*
 **	Struct Control
@@ -134,52 +125,23 @@ typedef struct	s_tex
 **	ml - mouse left  key
 */
 
-typedef struct	s_cnt
+typedef struct		s_cnt
 {
-	short		kw;
-	short		ka;
-	short		ks;
-	short		kd;
-	short		kr;
-	short		kl;
-	short		kfl;
-	short		kfr;
-	short		kf3;
-	int			mx;
-	int			my;
-	short		br;
-	short		bl;
-	short		mm;
-}				t_cnt;
-
-/*
-**	Struct MiniMap
-**
-**	fullb - fullscreen minimap block size
-**	minib - minimap block size
-**	mode  - mode of minimap [0 mini] [1 - mini dynamic] [2 - full] [-1 - only map]
-**	b_clr - block color
-**	t_clr - trim color of block
-**	o_clr - outline color
-**	d_clr - detected block color
-**	s_clr - sprite color
-**	p_clr - player color
-*/
-
-typedef struct	s_mmp
-{
-	int			fullb;
-	int			minib;
-	int			mode;
-	int			b_clr;
-	int			t_clr;
-	int			o_clr;
-	int			d_clr;
-	int			s_clr;
-	int			p_clr;
-	int			f_clr;
-	int			a_clr;
-}				t_mmp;
+	short			kw;
+	short			ka;
+	short			ks;
+	short			kd;
+	short			kr;
+	short			kl;
+	short			kfl;
+	short			kfr;
+	short			kf3;
+	int				mx;
+	int				my;
+	short			br;
+	short			bl;
+	short			mm;
+}					t_cnt;
 
 /*
 **	Struct/Linked list - Walls List
@@ -228,41 +190,31 @@ typedef struct		s_wli
 **	wli - Walls List
 */
 
-typedef struct	s_eng
+typedef struct		s_eng
 {
-	void		*mlx;
-	void		*win;
-	t_img		lma;
-	t_img		lmi;
-	t_img		rma;
-	t_img		rmi;
-	t_img		frg;
-	t_img		mdg;
-	t_img		bcg;
-	t_tex		tex;
-	int			hsz;
-	int			rex;
-	int			rey;
-	int			flc;
-	int			cec;
-	double		plx;
-	double		ply;
-	double		cax;
-	double		cay;
-	double		crx;
-	double		cry;
-	double		clx;
-	double		cly;
-	double		pla;
-	double		plb;
-	double		fov;
-	char		**m;
-	int			msx;
-	int			msy;
-	t_cnt		cnt;
-	t_mmp		mmp;
-	t_wli		wli;
-}				t_eng;
+	short			mode;
+	void			*mlx;
+	void			*win;
+	t_img			mdg;
+	t_tex			tex;
+	int				rex;
+	int				rey;
+	unsigned int	flc;
+	unsigned int	cec;
+	double			plx;
+	double			ply;
+	double			pla;
+	double			plb;
+	double			fov;
+	char			**m;
+	int				msx;
+	int				msy;
+	t_cnt			cnt;
+	t_spr			*spr;
+	double			*dst;
+	double			*ray;
+	double			*rayr;
+}					t_eng;
 
 /*
 **	Struct Dots
@@ -281,48 +233,46 @@ typedef struct	s_eng
 **			  2 - I see this dot!
 */
 
-typedef struct	s_dts
-{
-	double	a[3];
-	double	b[3];
-	double	c[3];
-	double	d[3];
-}				t_dts;
+/*
+**	[code]	typedef struct	s_dts
+**	[code]	{
+**	[code]		double	a[3];
+**	[code]		double	b[3];
+**	[code]		double	c[3];
+**	[code]		double	d[3];
+**	[code]	}				t_dts;
+*/
 
 /*
 **	Struct Raycasting
 **
 **	My metod of raycasting
 **
-**	ho[4] -	horizontal
-**	ve[4] - vertical
-**       ve[0] | ho[0] - x position
-**       ve[1] | ho[1] - y position
-**       ve[2] | ho[2] - x size between triangles
-**       ve[2] | ho[2] - y size between triangles
-**       ve[3] | ho[3] - lenght between player and block crossing
+**	a - curent angle of ray
+**	c - curent line
+**	s - step in angle between two rays
+**	h - horizontal
+**	v - vertical
+**       x - x position
+**       y - y position
+**       g - cathetus between triangles
+**       l - lenght between player and block crossing
 */
 
-typedef struct	s_ray
+typedef struct		s_ray
 {
-	t_dts		dts;
-	double		ho[5];
-	double		ve[5];
-}				t_ray;
-
-//typedef struct	s_ray
-//{
-//	t_dts		dts;
-//	double		hou[2];
-//	double		vel[2];
-//	double		hod[2];
-//	double		ver[2];
-//	double		vl[3];
-//	double		hl[3];
-//	double		vr[2];
-//	double		hr[2];
-//
-//}				t_ray;
+	double			a;
+	int				c;
+	double			s;
+	double			hx;
+	double			hy;
+	double			hc;
+	double			hl;
+	double			vx;
+	double			vy;
+	double			vc;
+	double			vl;
+}					t_ray;
 
 /*
 **	Struct Block
@@ -335,15 +285,15 @@ typedef struct	s_ray
 **	trim - size of trim
 */
 
-typedef struct	s_blc
+typedef struct		s_blc
 {
-	int			x;
-	int			y;
-	int			xo;
-	int			yo;
-	int			size;
-	int			trim;
-}				t_blc;
+	int				x;
+	int				y;
+	int				xo;
+	int				yo;
+	int				size;
+	int				trim;
+}					t_blc;
 
 /*
 **	Struct Square
@@ -352,72 +302,83 @@ typedef struct	s_blc
 **	xe/ye - end
 */
 
-typedef	struct	s_ab
+typedef	struct		s_ab
 {
-	int			xa;
-	int			ya;
-	int			xe;
-	int			ye;
-}				t_ab;
+	int				xa;
+	int				ya;
+	int				xe;
+	int				ye;
+}					t_ab;
 
 /*
 **	Initialization
 */
 
-void			other_init(t_eng *e, t_vars v, char **map);
-void			render_map(t_eng *e, void *img, int sizeb);
-void	 		keyboard_init(t_eng *e);
-int				mouse_init(t_eng *e);
-void			window_init(t_eng *e, t_vars v);
+void				other_init(t_eng *e, t_vars v, char **map);
+void				render_map(t_eng *e, void *img, int sizeb);
+void				keyboard_init(t_eng *e);
+int					mouse_init(t_eng *e);
+void				window_init(t_eng *e, t_vars v);
 
 /*
 **	Engine
 */
 
-int				tick(t_eng *e);
-void			movement(t_eng *e);
-void			collision(t_eng *e);
-void			raycasting(t_eng *e);
-void			raycasting_len(t_eng *e, t_ray *r, double a);
+int					tick(t_eng *e);
+void				movement(t_eng *e);
+void				collision(t_eng *e);
+void				raycasting(t_eng *e);
+void				raycasting_len(t_eng *e, t_ray *r);
+void				sprites(t_eng *e);
+unsigned char		*get_pafxmp(t_xpm *xpm, int x, double yy);
 
-int				key_press(int key, t_eng *e);
-int				key_release(int key, t_eng *e);
-int				button_press(int hook, t_eng *e);
-int				button_release(int hook, t_eng *e);
-int				mouse_motion(int x, int y, t_eng *e);
+int					key_press(int key, t_eng *e);
+int					key_release(int key, t_eng *e);
+int					button_press(int hook, t_eng *e);
+int					button_release(int hook, t_eng *e);
+int					mouse_motion(int x, int y, t_eng *e);
+void				get_sprite_distance(t_eng *e);
+void				sort_sprites(t_eng *e);
 
-void			destroyer();
-int				expose(int hook, t_eng *e);
-int				destroy_notify(int hook, t_eng *e);
+void				destroyer();
+int					expose(int hook, t_eng *e);
+int					destroy_notify(int hook, t_eng *e);
+void				raycastings(t_eng *e, t_ray r);
+void				init_rays(t_eng *e, t_ray r);
+void				calc_line(t_eng *e, t_ray *r, t_xpm *xpm, int xx);
+void				mouse_tick(t_eng *e);
+void				init_rays(t_eng *e, t_ray r);
 
-void			get_rgb(int color, int *r, int *g, int *b);
-int				get_alpha(int argb);
-int				get_red(int argb);
-int				get_green(int argb);
-int				get_blue(int argb);
-
-void			my_put_string(t_img *img, char *str, int x, int y, int size);
-void			mouse_tick(t_eng *e);
+int					find_sprite_ray(t_eng *e, double angle);
+int					is_drawable_line(t_xpm *xpm, int x);
+void				clear_sprite(t_eng *e, t_spr s);
+int					is_drawable_line(t_xpm *xpm, int x);
 
 /*
 **	Utils
 */
 
-void			fill_img_with_color(void *img, int x, int y, int color);
-void			put_pixel_to_img(t_img *data, int x, int y, int color);
-void			engine(t_eng *e);
-void			cub_get_mapsize(char **map, int *x, int *y);
-void			my_put_char(t_img *img, char c, int x, int y, int size);
+void				fill_img_with_color(void *img, int x, int y, int color);
+void				put_pixel_to_img(t_img *img, int x, int y, int color);
+unsigned int		get_pixel_from_img(t_img *img, int x, int y);
+unsigned int		get_pixel_from_xmp(t_xpm *xpm, int x, double yy);
+void				engine(t_eng *e);
+void				cub_get_mapsize(char **map, int *x, int *y);
+void				my_put_char(t_img *img, char c, int x, int y, int size);
 
 /*
 **	Draw
 */
 
-void			draw_line(t_img *img, t_ab s, int color);
-void			draw_rectangle(t_img *img, t_ab s, int color);
-void			draw_full_rectangle(t_img *img, t_ab s, int color);
-void			draw_dot(t_img *img, int x, int y, int color);
-void			draw_arrow(t_img *img, t_ab s, int size, double angle, int color);
+void				draw_rectangle(t_img *img, t_ab s, int color);
+void				draw_full_rectangle(t_img *img, t_ab s, int color);
+void				draw_dot(t_img *img, int x, int y, int color);
+
+/*
+**	void			draw_arrow(t_img *img, t_ab s, int size, double angle,
+**														 int color);
+**	void			draw_line(t_img *img, t_ab s, int color);
+*/
 
 /*
 **	void	аput_pixel_to_frame(t_data *data, int x, int y, int color);

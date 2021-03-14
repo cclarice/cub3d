@@ -1,19 +1,16 @@
-R 3000 1500
 WE ./assets/wall_skull.xpm
-NO ./assets/wall_mossy.xpm
+NO  ./assets/wall_mossy.xpm
 EA ./assets/wall_wither.xpm
 SO ./assets/wall_pig.xpm
-S ./assets/lamp.xpm
+S ./assets/red.xpm
 
-F 255,22,22
-C 111,18,18
+R 1600 900
 
-  111111111111 1
-  100000000001
-1110101010000111
-1000000010010001
-1010000010000001
-10N0000000000111
-11001010100001
-1 101000000001
-11111111111111
+F 0,0,0
+
+
+C 255,255,255
+
+1111
+1W21
+1111
