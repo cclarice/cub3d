@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 06:55:47 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 09:50:36 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 13:53:00 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	player_init(t_eng *e, char **map)
 				e->plx = x + .500001;
 				e->ply = y + .500001;
 				map[y][x] == 'S' ? e->pla = 0.00001 : 0;
-				map[y][x] == 'W' ? e->pla = P * 0.5 : 0;
+				map[y][x] == 'W' ? e->pla = P * 1.5 : 0;
 				map[y][x] == 'N' ? e->pla = P : 0;
-				map[y][x] == 'E' ? e->pla = P * 1.5 : 0;
+				map[y][x] == 'E' ? e->pla = P * 0.5 : 0;
 			}
 			x++;
 		}

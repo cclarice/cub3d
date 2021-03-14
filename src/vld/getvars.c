@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 01:11:40 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 09:05:48 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:32:21 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int		get_resol(char *m, int *x, int *y, int b)
 	i = 0;
 	while (m[i] == ' ')
 		i++;
-	if ((x[0] = ft_atoi(&m[i])) > 16384)
+	if ((x[0] = ft_atoi(&m[i])) > 16384 / 2 || x[0] <= 0)
 		return (b);
 	while (ft_isdigit(m[i]))
 		i++;
 	while (m[i] == ' ')
 		i++;
-	if ((y[0] = ft_atoi(&m[i])) > 16384)
+	if ((y[0] = ft_atoi(&m[i])) > 16384 / 2 || y[0] <= 0)
 		return (b);
 	return (-1);
 }

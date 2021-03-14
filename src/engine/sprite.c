@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 03:44:10 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 11:35:23 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:35:46 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,13 @@ void	sprites(t_eng *e)
 	else
 	{
 		write(1, "Please Wait\n", 12);
+		mlx_do_sync(e->mlx);
+		crnt = e->spr;
+		while (crnt)
+		{
+			draw_sprite(e, *crnt);
+			crnt = crnt->next;
+		}
 		mlx_do_sync(e->mlx);
 		save_image_as_bmp(&e->mdg, "Screenshot");
 		exit(0);

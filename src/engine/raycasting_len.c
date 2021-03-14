@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 22:03:00 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 10:09:46 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 13:55:32 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,21 @@ void	raycastings(t_eng *e, t_ray r)
 	if (r.vl >= r.hl)
 	{
 		if (r.a > P * 0.5 && r.a < P * 1.5)
-			calc_line(e, &r, &e->tex.we,
-				abs((int)(e->tex.we.w * (r.hx - (int)r.hx))));
+			calc_line(e, &r, &e->tex.no,
+				abs((int)(e->tex.no.w * (r.hx - (int)r.hx))));
 		else
-			calc_line(e, &r, &e->tex.ea,
-				abs((int)(e->tex.ea.w * (r.hx - (int)r.hx - 1))));
+			calc_line(e, &r, &e->tex.so,
+				abs((int)(e->tex.so.w * (r.hx - (int)r.hx - 1))));
 		e->dst[e->rex - r.c] = r.hl;
 	}
 	else
 	{
 		if (r.a > P)
-			calc_line(e, &r, &e->tex.no,
-				abs((int)(e->tex.no.w * (r.vy - (int)r.vy - 1))));
+			calc_line(e, &r, &e->tex.we,
+				abs((int)(e->tex.we.w * (r.vy - (int)r.vy - 1))));
 		else
-			calc_line(e, &r, &e->tex.so,
-				abs((int)(e->tex.so.w * (r.vy - (int)r.vy))));
+			calc_line(e, &r, &e->tex.ea,
+				abs((int)(e->tex.ea.w * (r.vy - (int)r.vy))));
 		e->dst[e->rex - r.c] = r.vl;
 	}
 }

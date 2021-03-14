@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 15:54:40 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 11:35:04 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 13:53:39 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			calc_line(t_eng *e, t_ray *r, t_xpm *xpm, int xx)
 	shade = 1 - wd / MAP_LEN;
 	d[0] = -height * 0.5 + e->rey * 0.5 * e->plb;
 	d[1] = +height * 0.5 + e->rey * 0.5 * e->plb;
-	d[2] = e->rex - r->c;
+	d[2] = e->rex - r->c - 1;
 	d[3] = xx * 4;
 	ver_line(e, xpm, d, shade);
 }

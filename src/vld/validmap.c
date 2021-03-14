@@ -6,16 +6,16 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 19:12:53 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 09:06:28 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 14:44:13 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
 /*
-** ccc ___
+**  c  ___
 ** cxc _x_
-** ccc __c
+**  c  __c
 */
 
 void	validmap(char **m, int *e)
