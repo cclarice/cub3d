@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 21:04:37 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 09:02:36 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 17:46:20 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@
 #define E22 "  The map has more than one player’s start position"
 #define E23 "  The map has too high Floor color"
 #define E24 "  The map has too high Ceilling color"
-#define E25 "  The map has has a double line break"
-#define E26 "  The map has line break at the end"
+#define E25 "  The map has line break"
+#define E26 "  The map has more than two line breaks at the end"
 #define PRF ft_printf
 
 int		len(char *map)

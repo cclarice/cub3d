@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 11:01:46 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 09:13:20 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 17:47:56 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,9 @@ void	check_spaces(char *m, int *e)
 		m[i] == '\n' && m[i + 1] == '\n' && m[i + 2] != '\0' ? e[25] = 0 : 0;
 		i++;
 	}
-	if (m[i - 1] == '\n')
+	if (i - 1 && i && m[i - 2] == '\n' && m[i - 1] == '\n')
 		e[26] = 0;
 }
-
-/*
-**	ei[26] != 0
-*/
 
 void	vldmap(char *map, int *ei, char ***m)
 {
@@ -111,7 +107,7 @@ void	vldmap(char *map, int *ei, char ***m)
 	i = 0;
 	ei[19] = (map[0] != '\0' ? -1 : 0);
 	check_spaces(map, ei);
-	if (ei[19] != 0 && ei[25] != 0)
+	if (ei[19] != 0 && ei[25] != 0 && ei[26] != 0)
 	{
 		*m = get_map3d(map);
 		validmap(*m, ei);

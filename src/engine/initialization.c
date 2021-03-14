@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 06:55:47 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 13:52:41 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 18:07:06 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,14 @@ int		initialization(t_path pt, t_vars v, char **map)
 	e.mode = 0;
 	if (textures_init(&e, &e.tex, pt))
 		return (0);
-	ft_printf("Initialization\n");
-	if (v.mode == 2)
+	if (v.mode == 2 && ft_printf("Screenshot mode!\n") && (e.mode = 2)
+									&& (v.rx > 16384 || v.ry > 16384))
 	{
-		e.mode = 2;
-		ft_printf("Screenshot mode!\n");
+		ft_printf("Error\nBro is too high to save!\n");
+		ft_printf("Please use resolution less than 16384n");
+		exit(1);
 	}
+	ft_printf("Errors was not found\n");
 	resolution_init(&e, v);
 	cub_get_mapsize(map, &e.msx, &e.msy);
 	e.m = map;
@@ -149,8 +151,6 @@ int		initialization(t_path pt, t_vars v, char **map)
 	keyboard_init(&e);
 	mouse_init(&e);
 	other_init(&e, v, map);
-	if (v.mode == 2)
-		ft_printf("Screenshot mode!\n");
 	engine(&e);
 	return (0);
 }
