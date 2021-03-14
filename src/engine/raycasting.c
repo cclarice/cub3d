@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 15:54:40 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 10:06:47 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 11:35:04 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,21 @@ void			ver_line(t_eng *e, t_xpm *xpm, int *d, float shade)
 	int	ceil;
 
 	ceil = d[0] - 1;
-	while (ceil >= 0 && get_pixel_from_img(&e->mdg, d[2], ceil) != e->cec)
-		put_pixel_to_img(&e->mdg, d[2], ceil--, e->cec);
+	while (ceil >= 0)
+	{
+		if (get_pixel_from_img(&e->mdg, d[2], ceil) != e->cec)
+			put_pixel_to_img(&e->mdg, d[2], ceil--, e->cec);
+		else
+			ceil--;
+	}
 	draw_wall(e, xpm, d, shade);
-	while (d[0] < e->rey && get_pixel_from_img(&e->mdg, d[2], d[0]) != e->flc)
-		put_pixel_to_img(&e->mdg, d[2], d[0]++, e->flc);
+	while (d[0] < e->rey)
+	{
+		if (get_pixel_from_img(&e->mdg, d[2], d[0]) != e->flc)
+			put_pixel_to_img(&e->mdg, d[2], d[0]++, e->flc);
+		else
+			d[0]++;
+	}
 }
 
 void			calc_line(t_eng *e, t_ray *r, t_xpm *xpm, int xx)
@@ -90,8 +100,5 @@ void			raycasting(t_eng *e)
 		raycastings(e, r);
 		r.c++;
 	}
-	if (e->spr)
-		sprites(e);
-	else
-		ft_printf("Fuck\n");
+	sprites(e);
 }

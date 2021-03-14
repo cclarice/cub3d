@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 02:18:29 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 10:16:54 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 11:35:59 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,17 @@ void	sort_sprites(t_eng *e)
 {
 	t_spr	*crnt;
 
-	while (not_sorted(e))
-	{
-		crnt = e->spr;
-		while (crnt->next)
+	if (e->spr)
+		while (not_sorted(e))
 		{
-			if (crnt->len < crnt->next->len)
-				swap(crnt, crnt->next);
-			crnt = crnt->next;
+			crnt = e->spr;
+			while (crnt->next)
+			{
+				if (crnt->len < crnt->next->len)
+					swap(crnt, crnt->next);
+				crnt = crnt->next;
+			}
 		}
-	}
 }
 
 int		is_drawable_line(t_xpm *xpm, int x)

@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 03:44:10 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 10:29:14 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 11:35:23 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,15 @@ void	draw_sprite(t_eng *e, t_spr s)
 **		sprites_to_map(&(e->rma.img), e, e->mmp.fullb, *crnt);
 */
 
+/*
+**	crnt = e->spr;
+**		while (crnt)
+**		{
+**			clear_sprite(e, *crnt);
+**			crnt = crnt->next;
+**		}
+*/
+
 void	sprites(t_eng *e)
 {
 	t_spr *crnt;
@@ -167,11 +176,5 @@ void	sprites(t_eng *e)
 		mlx_do_sync(e->mlx);
 		save_image_as_bmp(&e->mdg, "Screenshot");
 		exit(0);
-	}
-	crnt = e->spr;
-	while (crnt)
-	{
-		clear_sprite(e, *crnt);
-		crnt = crnt->next;
 	}
 }
