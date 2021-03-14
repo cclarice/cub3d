@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 23:18:55 by cclarice          #+#    #+#             */
-/*   Updated: 2021/01/23 23:19:35 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 22:17:07 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	ft_atoi(const char *str)
 		++str;
 	}
 	if (r >= 2147483648 && n == 1)
-		return (-1);
+		return (2147483647);
 	if (r > 2147483648 && n == -1)
-		return (0);
+		return (2147483647);
 	return (n * r);
 }
