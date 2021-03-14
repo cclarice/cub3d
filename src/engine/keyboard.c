@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 22:30:34 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 09:56:20 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 17:03:20 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int			key_press(int key, t_eng *e)
 	if (key == 10)
 		e->cnt.mm = e->cnt.mm == 0 ? 1 : 0;
 	if (key == 47)
-		e->fov += 0.174533;
-	if (key == 43)
-		e->fov -= 0.174533;
+		e->fov += 0.174533 / 2;
+	if (key == 43 && e->fov > 0.2)
+		e->fov -= 0.174533 / 2;
 	key == KEYW ? e->cnt.kw = 1 : 0;
 	key == KEYA ? e->cnt.ka = 1 : 0;
 	key == KEYS ? e->cnt.ks = 1 : 0;

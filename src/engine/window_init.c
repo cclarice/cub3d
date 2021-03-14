@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 07:32:27 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 10:34:13 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 16:47:18 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,12 @@ void	window_init(t_eng *e, t_vars v)
 		e->win = mlx_new_window(e->mlx, e->rex, e->rey, NAME);
 		ft_printf(" Success!\n");
 	}
-	img_init(e, &e->mdg, e->rex, e->rey);
+	if (v.mode == 2 && (e->rex > 15360 || e->rey > 8640))
+	{
+		ft_printf("Bro is too high to save!\n");
+		ft_printf("Please use resolution less than 15360x8640\n");
+		exit(1);
+	}
+	else
+		img_init(e, &e->mdg, e->rex, e->rey);
 }

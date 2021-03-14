@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 03:44:10 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 14:35:46 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/14 16:47:57 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_sprite_line(t_eng *e, t_xpm *xpm, int *d, float shade)
 		d[1] = e->rey;
 	while (d[0] < d[1])
 	{
-		clr = get_pafxmp(xpm, d[3], (u - d[0]) / (float)r);
+		clr = get_pafxmp(xpm, d[3], (u - d[0]) / r);
 		if (clr[2] || clr[1] || clr[0])
 		{
 			shaded = ((unsigned char)(clr[2] * shade) << 16) +
@@ -97,7 +97,7 @@ int		find_sprite_ray(t_eng *e, double angle)
 	return (-0xffff);
 }
 
-void	draw_sprite(t_eng *e, t_spr s)
+int		draw_sprite(t_eng *e, t_spr s)
 {
 	double	len;
 	double	angle;
@@ -110,6 +110,7 @@ void	draw_sprite(t_eng *e, t_spr s)
 	len = s.len;
 	if ((ray = find_sprite_ray(e, angle)) != -0xffff)
 		calc_lines(e, ray, len);
+	return (1);
 }
 
 /*
@@ -163,11 +164,8 @@ void	sprites(t_eng *e)
 	get_sprite_distance(e);
 	sort_sprites(e);
 	crnt = e->spr;
-	while (crnt)
-	{
-		draw_sprite(e, *crnt);
+	while (crnt && draw_sprite(e, *crnt))
 		crnt = crnt->next;
-	}
 	if (e->mode != 2)
 		mlx_put_image_to_window(e->mlx, e->win, e->mdg.img, 0, 0);
 	else
@@ -175,11 +173,8 @@ void	sprites(t_eng *e)
 		write(1, "Please Wait\n", 12);
 		mlx_do_sync(e->mlx);
 		crnt = e->spr;
-		while (crnt)
-		{
-			draw_sprite(e, *crnt);
+		while (crnt && draw_sprite(e, *crnt))
 			crnt = crnt->next;
-		}
 		mlx_do_sync(e->mlx);
 		save_image_as_bmp(&e->mdg, "Screenshot");
 		exit(0);
