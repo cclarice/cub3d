@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 13:59:42 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 10:37:38 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:33:12 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_spr	*ft_newsprite(double x, double y)
 	t_spr *ptr;
 
 	if (!(ptr = malloc(sizeof(t_spr))))
-		return (NULL);
+		exit((ft_printf("Error\n Malloc Error!")) * 0);
 	ptr->x = x;
 	ptr->y = y;
 	ptr->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 06:55:47 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 13:53:00 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:35:57 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	sprites_init(t_eng *e, char **map)
 	e->dst = (double *)malloc(sizeof(double) * e->rex + 1);
 	e->ray = (double *)malloc(sizeof(double) * (e->rex * 2) + 1);
 	if (!e->dst || !e->ray)
-		ft_printf("MALLOC ERROR!\n");
+		exit((ft_printf("Error\n Malloc Error!")) * 0);
 	e->rayr = e->ray;
 	e->ray = &e->ray[e->rex / 2 + 1];
 	print_sprites(*e);

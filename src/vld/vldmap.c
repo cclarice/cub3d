@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 11:01:46 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 22:44:48 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:33:02 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*alloc_row(int x, char c)
 	char *row;
 
 	if (!(row = (char *)malloc(sizeof(char) * x + 1)))
-		return (NULL);
+		exit((ft_printf("Error\n Malloc Error!")) * 0);
 	row[x--] = '\0';
 	while (x >= 0)
 	{
@@ -35,11 +35,11 @@ char	**alloc_map(int x, int y, char *text)
 	i = 0;
 	if (!(map = (char **)malloc(sizeof(char *) * y + 1)) ||
 		!(map[y] = alloc_row(x, '\0')))
-		return (NULL);
+		exit((ft_printf("Error\n Malloc Error!")) * 0);
 	y--;
 	while (y >= 0)
 		if (!(map[y--] = alloc_row(x, ' ')))
-			return (NULL);
+			exit((ft_printf("Error\n Malloc Error!")) * 0);
 	x = 0;
 	y = 0;
 	while (text[i] != 0)

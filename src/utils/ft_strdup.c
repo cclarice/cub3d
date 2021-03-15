@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 21:40:19 by cclarice          #+#    #+#             */
-/*   Updated: 2021/01/24 17:20:51 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:33:47 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strdup(char *src)
 		l++;
 	str = (char*)malloc(sizeof(*str) * (l + 1));
 	if (!str)
-		return (NULL);
+		exit((ft_printf("Error\n Malloc Error!")) * 0);
 	str[l] = '\0';
 	while (l >= 0)
 	{

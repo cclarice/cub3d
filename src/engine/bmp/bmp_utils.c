@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:16:17 by enena             #+#    #+#             */
-/*   Updated: 2021/03/14 11:18:10 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:34:18 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char			*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	if (!(str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
-		return (NULL);
+		exit((ft_printf("Error\n Malloc Error!")) * 0);
 	p = str;
 	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
 	while (*s1)

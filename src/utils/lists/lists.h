@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 13:59:03 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 10:37:18 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:37:24 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 
 # include <stdlib.h>
+# include "../../printf/ft_printf.h"
 
 typedef struct		s_spr
 {

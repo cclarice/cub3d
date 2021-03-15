@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 01:11:40 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 16:44:25 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/15 21:32:48 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int		get_path(char *m, char **path)
 	while (m[i] == ' ')
 		i++;
 	l = get_path_len(&m[i]);
-	path[0] = (char *)malloc(sizeof(char) * l + 1);
+	if (!(path[0] = (char *)malloc(sizeof(char) * l + 1)))
+		exit((ft_printf("Error\n Malloc Error!")) * 0);
 	path[0][l] = '\0';
 	l = 0;
 	while (m[i] != '\n' && m[i] != '\0')
