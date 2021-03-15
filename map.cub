@@ -1,19 +1,19 @@
-WE ./assets/2.xpm
-NO ./assets/2.xpm
-EA ./assets/2.xpm
-SO ./assets/2.xpm
+WE                     ./assets/wwe.xpm
+NO ./assets/wno.xpm
+EA               ./assets/wea.xpm
+SO ./assets/wso.xpm
 
-S ./assets/2.xpm
+S ./assets/slight.xpm
 
-R 800 900
+R 10000 10000
 
 C  7,50 ,200
 F 155,155,155
      
-    111111111111111111
+     111111111111111111
     1000000000000000001
     1000000001010220001
-  11100000000000022001 111
+  11100000000000220011111
   10000022200001220001 101
   10000000000000000001 111
   1111111111111111111
