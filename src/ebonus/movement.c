@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:47:12 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/16 03:58:57 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/16 04:16:50 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,10 @@ void	movement(t_eng *e)
 {
 	if (e->cnt.kspace && e->height < 0.1)
 	{
-		ft_printf("hi\n");
 		e->hspeed = e->rey / 24;
 	}
 	if (e->hspeed > 0 || e->height > 0)
 	{
-		ft_printf("ih\n");
 		e->height += e->hspeed;
 		if (e->hspeed > 1)
 			e->hspeed -= (1 + fabs(e->hspeed)) * (double)e->rey / 4096;
