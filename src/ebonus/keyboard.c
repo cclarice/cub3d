@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 22:30:34 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/15 22:32:26 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/16 03:56:18 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #define KEYD 2
 #define KEYR 124
 #define KEYL 123
+#define KEYUP 125
+#define KEYDW 126
 #define KEYM 46
 #define KEYF3 99
 #define KEYMM 10
@@ -30,7 +32,7 @@ void		keyboard_init(t_eng *e)
 	e->cnt.kd = 0;
 	e->cnt.kr = 0;
 	e->cnt.kl = 0;
-	e->cnt.kf3 = 0;
+	e->cnt.kf3 = 1;
 }
 
 /*
@@ -84,10 +86,17 @@ int			key_press(int key, t_eng *e)
 	key == KEYA ? e->cnt.ka = 1 : 0;
 	key == KEYS ? e->cnt.ks = 1 : 0;
 	key == KEYD ? e->cnt.kd = 1 : 0;
+	key == KEYUP ? e->cnt.kup = 1 : 0;
+	key == KEYDW ? e->cnt.kdw = 1 : 0;
+	key == 49 ? e->cnt.kspace = 1 : 0;
 	key == KEYR || key == 8 ? e->cnt.kr = 1 : 0;
 	key == KEYL || key == 6 ? e->cnt.kl = 1 : 0;
 	if (key == KEYF3)
+	{
 		e->cnt.kf3 = e->cnt.kf3 ? 0 : 1;
+		if (e->cnt.kf3)
+			mlx_mouse_hide();
+	}
 	return (0);
 }
 
@@ -97,6 +106,9 @@ int			key_release(int key, t_eng *e)
 	key == KEYA ? e->cnt.ka = 0 : 0;
 	key == KEYS ? e->cnt.ks = 0 : 0;
 	key == KEYD ? e->cnt.kd = 0 : 0;
+	key == KEYUP ? e->cnt.kup = 0 : 0;
+	key == KEYDW ? e->cnt.kdw = 0 : 0;
+	key == 49 ? e->cnt.kspace = 0 : 0;
 	key == KEYR || key == 8 ? e->cnt.kr = 0 : 0;
 	key == KEYL || key == 6 ? e->cnt.kl = 0 : 0;
 	return (0);

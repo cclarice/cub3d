@@ -6,7 +6,7 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 22:29:53 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/15 22:59:14 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/16 02:31:50 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 int		mouse_init(t_eng *e)
 {
-	if (0)
+	if (e->mode != 2)
+	{
 		mlx_mouse_move(e->win, e->rex / 2, e->rey / 2);
+		mlx_mouse_hide();
+	}
 	e->cnt.mx = 0;
 	e->cnt.my = 0;
 	e->cnt.br = 0;
@@ -47,7 +50,7 @@ void	mouse_tick(t_eng *e)
 	int x;
 	int y;
 
-	if (0)
+	if (e->cnt.kf3)
 	{
 		mlx_mouse_get_pos(e->win, &x, &y);
 		e->pla -= (x - e->rex / 2) * 0.0005;
@@ -58,4 +61,6 @@ void	mouse_tick(t_eng *e)
 			e->plb += 0.005;
 		mlx_mouse_move(e->win, e->rex / 2, e->rey / 2);
 	}
+	else
+		mlx_mouse_show();
 }

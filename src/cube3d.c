@@ -6,14 +6,11 @@
 /*   By: cclarice <cclarice@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:33:10 by cclarice          #+#    #+#             */
-/*   Updated: 2021/03/14 11:21:32 by cclarice         ###   ########.fr       */
+/*   Updated: 2021/03/16 03:22:55 by cclarice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-#define SUCCESS ft_printf("\033[92mSuccesful End \U0001f918\n")
-#define NO_MAP ft_printf("Error\n\033[31mMap is not found!\n")
 
 int		main(int c, char **v)
 {
@@ -32,7 +29,7 @@ int		main(int c, char **v)
 			initialization(m.pt, m.vr, m.map);
 	}
 	else
-		return (NO_MAP);
+		return ((ft_printf("Error\n\033[31mMap is not found!\n")) * 0);
 	free(m.cub);
-	return (SUCCESS);
+	return ((ft_printf("\033[92mSuccesful End \U0001f918\n")) * 0);
 }
